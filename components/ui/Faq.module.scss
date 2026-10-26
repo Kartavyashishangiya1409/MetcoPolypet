@@ -1,0 +1,49 @@
+@use 'tokens' as *;
+
+.list {
+  border-top: 1px solid $line;
+}
+
+.item {
+  border-bottom: 1px solid $line;
+}
+
+.summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 0;
+  cursor: pointer;
+  color: $ink;
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.q {
+  margin: 0;
+  font-size: clamp(19px, 1.8vw, 24px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.icon {
+  flex: none;
+  font-size: 24px;
+  font-weight: 400;
+  transition: transform 0.4s $ease;
+  .item[open] & {
+    transform: rotate(45deg);
+  }
+}
+
+.a {
+  margin: 0;
+  padding: 0 0 30px;
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: $text-2;
+}

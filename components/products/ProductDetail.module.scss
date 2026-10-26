@@ -1,0 +1,58 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  background: $bg;
+  border-radius: $r-xl;
+  overflow: hidden;
+}
+
+.media {
+  position: relative;
+  min-height: clamp(320px, 60vh, 640px);
+  background: $surface;
+}
+
+.body {
+  padding: clamp(28px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.app {
+  @include eyebrow($muted, 0.08em);
+}
+
+.name {
+  @include display(clamp(36px, 4vw, 60px), 1);
+}
+
+.summary {
+  margin: 0;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: $text-2;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: auto;
+}
+
+.spec {
+  @include underline-link;
+}

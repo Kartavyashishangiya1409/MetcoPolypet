@@ -1,0 +1,22 @@
+@use 'tokens' as *;
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: $font-mono;
+  font-size: 13px;
+
+  tr {
+    border-bottom: 1px solid $line-soft;
+  }
+  th {
+    text-align: left;
+    font-weight: 400;
+    color: $muted;
+    padding: 14px 0;
+    width: 46%;
+  }
+  td {
+    padding: 14px 0;
+  }
+}

@@ -1,0 +1,131 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.h2 {
+  @include display(clamp(36px, 4.4vw, 68px), 1);
+}
+
+.count {
+  @include mono;
+  color: $muted;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.chip {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: $r-pill;
+  border: 1px solid $line-btn;
+  background: transparent;
+  color: $ink;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+  &[aria-pressed='true'] {
+    border-color: $ink;
+    background: $ink;
+    color: $bg;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 40px 20px;
+}
+
+.cell[hidden] {
+  display: none;
+}
+
+// Card
+.card {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: opacity 0.25s;
+  &:hover {
+    opacity: 0.92;
+  }
+}
+
+.media {
+  position: relative;
+  height: clamp(320px, 30vw, 420px);
+  border-radius: $r-lg;
+  overflow: hidden;
+  background: $surface;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.name {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+// Stretched link: the whole card is the click target.
+.link {
+  color: inherit;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $r-lg;
+  }
+  &:hover {
+    color: inherit;
+  }
+  &:focus-visible {
+    outline: none;
+    &::after {
+      outline: 2px solid $accent;
+      outline-offset: 6px;
+    }
+  }
+}
+
+.weight {
+  @include mono(13px);
+  color: $accent;
+}
+
+.specs {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  font-family: $font-mono;
+  font-size: 12px;
+  dt {
+    color: $muted;
+  }
+  dd {
+    margin: 0;
+  }
+}

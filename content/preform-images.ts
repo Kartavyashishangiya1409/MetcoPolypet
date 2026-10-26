@@ -97,7 +97,7 @@ const entries: [string, PreformImageSpec][] = [
   // Products
   ['products-lineup', S('lineup', lineup, BG.dark, 1328, 504, { pad: '1.15' })],
   ...products.map((p): [string, PreformImageSpec] => [`card-${p.id}`, S('single', p.pf, BG.light, 320, 420)]),
-  ...products.map((p): [string, PreformImageSpec] => [`macro-${p.id}`, S('macro', p.pf, BG.light, 600, 640)]),
+  ...products.map((p): [string, PreformImageSpec] => [`macro-${p.id}`, S('macro', p.pf, BG.light, 600, 720)]),
   // Contact
   ['contact-trio', S('trio', '30,90,blue;28,116,clear;48,150,amber', BG.dark, 1328, 560, { pad: '1.2' })],
 ];

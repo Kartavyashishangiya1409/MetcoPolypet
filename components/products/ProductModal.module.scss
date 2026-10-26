@@ -1,0 +1,35 @@
+@use 'tokens' as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(12, 13, 13, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: clamp(0px, 3vw, 40px);
+}
+
+.dialog {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 92vh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-radius: $r-xl;
+}
+
+.close {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid $line-btn;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: $ink;
+}

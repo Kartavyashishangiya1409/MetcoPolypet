@@ -1,0 +1,134 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.eyebrow {
+  @include eyebrow($dark-muted);
+}
+
+.h2 {
+  @include display;
+}
+
+// Hero (dark)
+.hero {
+  background: $dark;
+  color: $dark-ink;
+  padding-top: $header-h;
+}
+.heroCopy {
+  @include container;
+  padding-top: clamp(72px, 10vw, 140px);
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.h1 {
+  @include display(clamp(52px, 8vw, 132px), 0.93, -0.05em);
+}
+.lede {
+  margin: 0;
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.55;
+  color: $dark-text;
+  text-wrap: pretty;
+}
+.bannerWrap {
+  @include container;
+  padding-top: clamp(48px, 6vw, 80px);
+}
+.banner {
+  position: relative;
+  height: clamp(320px, 56vh, 620px);
+  border-radius: $r-xl $r-xl 0 0;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+  background: $dark-surface;
+}
+
+// Catalogue
+.catalogue {
+  @include container;
+  padding-top: clamp(72px, 9vw, 128px);
+  padding-bottom: clamp(72px, 9vw, 128px);
+}
+.note {
+  margin: 48px 0 0;
+  @include mono;
+  color: $muted;
+}
+
+// Custom (dark)
+.custom {
+  background: $dark;
+  color: $dark-ink;
+}
+.customGrid {
+  @include container;
+  padding-top: clamp(96px, 12vw, 180px);
+  padding-bottom: clamp(96px, 12vw, 180px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 56px;
+}
+.customIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.customText {
+  margin: 0;
+  max-width: 440px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: $dark-text;
+}
+.customCta {
+  align-self: flex-start;
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid $dark-line;
+}
+.step {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid $dark-line;
+}
+.stepN {
+  @include mono;
+  color: $accent-light;
+  padding-top: 6px;
+}
+.stepBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stepT {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.stepD {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: $dark-text-2;
+}
+
+// FAQ
+.faq {
+  @include container(1100px);
+  padding-top: clamp(96px, 12vw, 180px);
+  padding-bottom: clamp(96px, 12vw, 180px);
+}
+.faqH {
+  @include display(clamp(36px, 4.4vw, 68px), 1);
+  margin-bottom: 48px;
+}

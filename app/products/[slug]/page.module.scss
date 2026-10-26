@@ -1,0 +1,47 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.page {
+  @include container(1312px);
+  padding-top: calc(#{$header-h} + clamp(40px, 6vw, 88px));
+  padding-bottom: clamp(96px, 12vw, 160px);
+}
+
+.crumbs ol {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  @include eyebrow($muted, 0.08em);
+  li + li::before {
+    content: '/';
+    margin-right: 10px;
+  }
+  a {
+    color: $muted;
+    &:hover {
+      color: $accent;
+    }
+  }
+  [aria-current] {
+    color: $ink;
+  }
+}
+
+.frame {
+  border: 1px solid $line;
+  border-radius: $r-xl;
+  overflow: hidden;
+}
+
+.note {
+  margin: 32px 0 0;
+  @include mono;
+  color: $muted;
+  a {
+    color: $ink;
+    border-bottom: 1px solid currentColor;
+  }
+}

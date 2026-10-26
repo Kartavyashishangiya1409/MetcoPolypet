@@ -83,7 +83,15 @@ export function specRows(p: Product) {
   ];
 }
 
-export const SPEC_SHEET_HREF = '#'; // TODO: per-product spec sheet PDFs
+/** Plain-language summary of a product (detail page answer block, meta description, JSON-LD) */
+export function describe(p: Product) {
+  return `${p.neck} PET preform, ${p.w}, ${p.h} high, for ${p.vol} ${p.app.toLowerCase()} bottles. Colours: ${p.colours.toLowerCase()}. ${MATERIAL}.`;
+}
+
+// TODO: per-product spec sheet PDFs, keyed by slug (e.g. '/spec-sheets/48mm-85g.pdf').
+// Until a PDF exists the "Spec sheet (PDF)" link requests one from sales by email.
+const SPEC_SHEETS: Partial<Record<string, string>> = {};
+export const specSheetHref = (p: Product) => SPEC_SHEETS[p.slug] ?? null;
 
 export const customSteps = [
   { n: '01', t: 'Brief', d: 'Bottle drawing or sample, target weight, closure and volume.' },
