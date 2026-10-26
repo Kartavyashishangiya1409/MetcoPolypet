@@ -4,14 +4,20 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Preform images are pre-encoded AVIF/WebP (scripts/render-preforms.mjs).
   images: { unoptimized: true },
+  // Lets a verification build run beside `next dev` without clobbering .next/.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   sassOptions: { includePaths: [path.join(process.cwd(), 'styles')] },
   experimental: { optimizePackageImports: ['gsap'] },
   async headers() {
     return [
       {
-        source: '/:dir(images|models|draco)/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+        source: '/:dir(images|models)/:path*',
+        // File names aren't content-hashed (re-renders keep their names), so no `immutable`.
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' },
+        ],
       },
     ];
   },

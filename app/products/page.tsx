@@ -10,7 +10,7 @@ import s from '@/components/products/Products.module.scss';
 
 const title = 'PET Preforms, 20–63 mm Neck & 6–85 g | Metco Polypet';
 const description =
-  'PET preform catalogue: 28 mm PCO 1881 and 1810, 30/25, 38 mm, 46 mm, 48 mm, 63 mm wide-mouth, 20/410 and 24/410 necks, 6 g to 85 g. Custom moulds on request.';
+  'PET preform catalogue: 28 mm PCO 1881 and 1810, 30/25, 38, 46, 48 and 63 mm wide-mouth, 20/410 and 24/410 necks, 6 g to 85 g. Custom moulds on request.';
 
 export const metadata = buildMetadata({ title, description, path: '/products' });
 
