@@ -1,0 +1,23 @@
+@use 'tokens' as *;
+
+.panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 100vh;
+  z-index: 80;
+  background: $dark;
+  color: $dark-ink;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 $gutter 48px;
+  pointer-events: none;
+}
+
+.label {
+  font-size: clamp(56px, 10vw, 160px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+}

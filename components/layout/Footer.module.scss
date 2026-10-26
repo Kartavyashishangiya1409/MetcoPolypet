@@ -1,0 +1,99 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.footer {
+  background: $dark;
+  color: $dark-ink;
+  overflow: hidden;
+  a {
+    color: $dark-ink;
+    &:hover {
+      color: $accent-light;
+    }
+  }
+}
+
+.inner {
+  @include container;
+  padding-top: clamp(72px, 9vw, 120px);
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(64px, 8vw, 120px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 40px;
+}
+
+.lead {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 420px;
+  @media (max-width: 479px) {
+    grid-column: auto;
+  }
+}
+.tagline {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.footer a.quote {
+  color: $accent-light;
+  font-size: 15px;
+  font-weight: 500;
+  &:hover {
+    color: $dark-ink;
+  }
+}
+
+.col {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.label {
+  @include eyebrow($dark-muted, 0.08em);
+  margin-bottom: 6px;
+}
+.muted {
+  color: $dark-text-2;
+}
+
+// Wordmark always spans the container width, centred (SVG textLength).
+.wordmark {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  text {
+    font-family: $font-sans;
+    font-size: 168px;
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    fill: $dark-ink;
+  }
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $dark-muted;
+  border-top: 1px solid $dark-line-soft;
+  padding-top: 24px;
+  a {
+    color: $dark-muted;
+  }
+}

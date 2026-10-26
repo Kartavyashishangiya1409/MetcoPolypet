@@ -1,0 +1,162 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transform: translateY(0%);
+  background: rgba(244, 244, 241, 0);
+  border-bottom: 1px solid rgba(18, 19, 18, 0);
+  backdrop-filter: saturate(1.6) blur(18px);
+  -webkit-backdrop-filter: saturate(1.6) blur(18px);
+  transition:
+    transform 0.5s $ease,
+    background 0.4s,
+    border-color 0.4s;
+}
+.hidden {
+  transform: translateY(-100%);
+}
+.filled {
+  background: rgba(244, 244, 241, 0.78);
+}
+.lined {
+  border-bottom-color: rgba(18, 19, 18, 0.08);
+}
+// Keyboard users tabbing into a hidden header bring it back.
+.header:focus-within {
+  transform: translateY(0%);
+}
+
+.inner {
+  @include container;
+  height: $header-h;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: $ink;
+}
+.mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid $ink;
+  display: grid;
+  place-items: center;
+  span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $ink;
+  }
+}
+.word {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  a {
+    font-size: 14px;
+    font-weight: 500;
+    color: $muted;
+    transition: color 0.2s;
+    &:hover {
+      color: $accent;
+    }
+  }
+  a.active {
+    color: $ink;
+  }
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: $r-pill;
+  background: $ink;
+  color: $bg;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.25s;
+  &:hover {
+    background: $ink-hover;
+    color: $bg;
+  }
+}
+
+.menuBtn {
+  display: none;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: $r-pill;
+  border: 1px solid $line-btn;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: $ink;
+  cursor: pointer;
+}
+
+@include below($bp-nav) {
+  .nav,
+  .cta {
+    display: none;
+  }
+  .menuBtn {
+    display: inline-block;
+  }
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: $bg;
+  padding: 110px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include from($bp-nav) {
+    display: none;
+  }
+}
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  a {
+    font-size: 52px;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: $ink;
+  }
+}
+.menuMeta {
+  font-family: $font-mono;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  a {
+    color: $muted;
+  }
+}

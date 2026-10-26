@@ -1,0 +1,61 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  border-radius: $r-pill;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.25s;
+  white-space: nowrap;
+}
+
+.md {
+  height: 54px;
+  padding: 0 28px;
+  font-size: 15px;
+}
+.lg {
+  height: 58px;
+  padding: 0 32px;
+  font-size: 16px;
+}
+.submit {
+  height: 56px;
+  padding: 0 32px;
+  font-size: 15px;
+}
+
+.dark {
+  background: $ink;
+  color: $bg;
+  &:hover {
+    background: $ink-hover;
+    color: $bg;
+  }
+}
+
+.light {
+  background: $dark-ink;
+  color: $dark;
+  &:hover {
+    background: #ffffff;
+    color: $dark;
+  }
+}
+
+.outline-dark {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 14px;
+  border: 1px solid rgba(237, 237, 232, 0.3);
+  background: transparent;
+  color: $dark-ink;
+}
+
+.text {
+  @include underline-link;
+}
