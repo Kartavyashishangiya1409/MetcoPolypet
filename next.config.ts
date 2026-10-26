@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
   // Lets a verification build run beside `next dev` without clobbering .next/.
   distDir: process.env.NEXT_DIST_DIR || '.next',
   sassOptions: { includePaths: [path.join(process.cwd(), 'styles')] },
-  experimental: { optimizePackageImports: ['gsap'] },
+  // inlineCss removes the render-blocking stylesheet round trip (CSS is ~36 KB, ~7 KB gzipped).
+  experimental: { optimizePackageImports: ['gsap'], inlineCss: true },
   async headers() {
     return [
       {
