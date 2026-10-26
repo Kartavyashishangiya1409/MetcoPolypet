@@ -11,7 +11,7 @@ import s from './Products.module.scss';
 
 export function ProductsHero() {
   return (
-    <section aria-labelledby="prod-h1" className={s.hero}>
+    <section aria-labelledby="prod-h1" data-header-dark="" className={s.hero}>
       <div className={s.heroCopy}>
         <span {...fade(true)} className={s.eyebrow}>
           Products

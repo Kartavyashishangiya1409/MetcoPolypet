@@ -16,6 +16,8 @@ export function Header() {
   const { menuOpen, setMenuOpen } = useNav();
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Pages that open on a dark hero mark it with [data-header-dark]; the SSR guess avoids a flash.
+  const [darkTop, setDarkTop] = useState(pathname === '/products');
   const lastY = useRef(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -32,6 +34,10 @@ export function Header() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    setDarkTop(!!document.querySelector('main [data-header-dark]'));
+  }, [pathname]);
 
   // Mobile menu: lock scroll, make the page inert, Esc closes, focus moves into the menu.
   useEffect(() => {
@@ -64,6 +70,7 @@ export function Header() {
     hidden && !menuOpen ? s.hidden : '',
     scrolled || menuOpen ? s.filled : '',
     scrolled ? s.lined : '',
+    darkTop && !scrolled && !menuOpen ? s.onDark : '',
   ].join(' ');
 
   return (

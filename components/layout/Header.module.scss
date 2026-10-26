@@ -26,6 +26,51 @@
 .lined {
   border-bottom-color: rgba(18, 19, 18, 0.08);
 }
+// Transparent header over a dark hero: switch to light ink (WCAG contrast).
+.onDark {
+  .logo {
+    color: $dark-ink;
+  }
+  .mark {
+    border-color: $dark-ink;
+    span {
+      background: $dark-ink;
+    }
+  }
+  .nav a {
+    color: $dark-muted;
+    &:hover {
+      color: $accent-light;
+    }
+  }
+  .nav a.active {
+    color: $dark-ink;
+  }
+  .cta {
+    background: $dark-ink;
+    color: $dark;
+    &:hover {
+      background: #ffffff;
+      color: $dark;
+    }
+  }
+  .menuBtn {
+    color: $dark-ink;
+    border-color: rgba(237, 237, 232, 0.3);
+  }
+}
+.logo,
+.mark,
+.mark span,
+.nav a,
+.cta,
+.menuBtn {
+  transition:
+    color 0.4s,
+    background 0.4s,
+    border-color 0.4s;
+}
+
 // Keyboard users tabbing into a hidden header bring it back.
 .header:focus-within {
   transform: translateY(0%);
