@@ -1,0 +1,109 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.rail {
+  position: relative;
+  height: 320vh;
+  background: $dark;
+  color: $dark-ink;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(28px, 5vh, 56px);
+}
+
+.head {
+  @include container;
+  padding-top: $header-h;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.h2 {
+  @include display(clamp(40px, 6vw, 96px), 0.95);
+}
+
+.rail a.link {
+  @include underline-link;
+  color: $dark-ink;
+  &:hover {
+    color: $accent-light;
+  }
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding: 0 $gutter;
+}
+
+.card {
+  width: clamp(260px, 26vw, 380px);
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.media {
+  position: relative;
+  height: clamp(300px, 46vh, 480px);
+  border-radius: $r-lg;
+  overflow: hidden;
+  background: $dark-surface;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.range {
+  font-family: $font-mono;
+  font-size: 12px;
+  color: $accent-light;
+}
+
+.app {
+  @include eyebrow($dark-muted, 0.06em);
+}
+
+// Reduced motion: no scroll-jacking — the rail becomes a native horizontal scroller.
+@include reduced-motion {
+  .rail {
+    height: auto;
+    padding: clamp(80px, 10vw, 140px) 0;
+  }
+  .stage {
+    position: static;
+    height: auto;
+  }
+  .head {
+    padding-top: 0;
+  }
+  .track {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+}

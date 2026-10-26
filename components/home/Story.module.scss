@@ -1,0 +1,148 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.story {
+  position: relative;
+  height: 420vh;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.grid {
+  @include container;
+  padding-top: $header-h;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(20px, 5vw, 80px);
+  align-items: center;
+  @include from($bp-story) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.textCol {
+  position: relative;
+  display: flex;
+  gap: 28px;
+}
+
+.track {
+  width: 2px;
+  align-self: stretch;
+  background: rgba(18, 19, 18, 0.1);
+  position: relative;
+  flex: none;
+}
+
+.bar {
+  position: absolute;
+  inset: 0;
+  background: $ink;
+  transform-origin: top;
+}
+
+.items {
+  position: relative;
+  flex: 1;
+  min-height: clamp(180px, 30vh, 260px);
+  @include from($bp-story) {
+    min-height: clamp(240px, 40vh, 380px);
+  }
+}
+
+.item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  // Only the first pair is visible until GSAP drives the timeline (also the no-JS state).
+  &:not(:first-child) {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+}
+
+.count {
+  font-family: $font-mono;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: $muted;
+}
+
+.title {
+  @include display(clamp(40px, 5.4vw, 84px));
+  text-wrap: balance;
+}
+
+.spec {
+  margin: 0;
+  max-width: 420px;
+  font-family: $font-mono;
+  font-size: 13px;
+  line-height: 1.7;
+  color: $text-3;
+}
+
+.media {
+  position: relative;
+  height: clamp(180px, 36vh, 360px);
+  border-radius: $r-xl;
+  overflow: hidden;
+  background: $surface;
+  @include from($bp-story) {
+    height: clamp(260px, 68vh, 720px);
+  }
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  &:not(:first-child) {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+// Reduced motion: no sticky stage — the four statements read as a normal list.
+@include reduced-motion {
+  .story {
+    height: auto;
+    padding: clamp(64px, 8vw, 120px) 0;
+  }
+  .stage {
+    position: static;
+    height: auto;
+  }
+  .grid {
+    padding-top: 0;
+    align-items: start;
+  }
+  .items {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+  .item {
+    position: static;
+    &:not(:first-child) {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .track {
+    display: none;
+  }
+  .img:not(:first-child) {
+    display: none;
+  }
+}

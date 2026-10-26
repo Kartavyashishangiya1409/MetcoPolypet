@@ -1,7 +1,8 @@
 // JSON-LD builders (schema.org). Rendered with <JsonLd />. NAP comes from content/site.ts only.
 import { site, absoluteUrl } from '@/content/site';
 import { MATERIAL, PACKING, type Product } from '@/content/products';
-import { imagePath, preformImages, renderSizes } from '@/content/preform-images';
+import { imagePath } from '@/content/preform-images';
+import manifest from '@/content/preform-manifest.json';
 
 const ORG_ID = `${site.url}/#organization`;
 const SITE_ID = `${site.url}/#website`;
@@ -17,10 +18,8 @@ const postalAddress = () => ({
   addressCountry: site.address.countryCode,
 });
 
-const imageUrl = (id: string) => {
-  const spec = preformImages[id];
-  return absoluteUrl(imagePath(id, renderSizes(spec.w, spec.h)[1].w, 'webp'));
-};
+const imageUrl = (id: string) =>
+  absoluteUrl(imagePath(id, (manifest as Record<string, { w2: number }>)[id].w2, 'webp'));
 
 export function organization() {
   return {

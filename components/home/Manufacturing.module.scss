@@ -1,0 +1,61 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.section {
+  position: relative;
+  height: clamp(560px, 100vh, 980px);
+  overflow: hidden;
+  background: $dark;
+  color: $dark-ink;
+}
+
+.layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10%;
+  height: 120%;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 13, 13, 0.2) 0%,
+    rgba(12, 13, 13, 0.55) 45%,
+    rgba(12, 13, 13, 0.95) 80%
+  );
+  pointer-events: none;
+}
+
+.bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.grid {
+  @include container;
+  padding-bottom: clamp(40px, 7vw, 88px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 32px;
+  align-items: end;
+}
+
+.h2 {
+  @include display(clamp(44px, 6.4vw, 104px), 0.94);
+}
+
+.copy {
+  margin: 0;
+  max-width: 440px;
+  font-size: 18px;
+  line-height: 1.55;
+  color: $dark-text;
+  justify-self: end;
+  text-wrap: pretty;
+}

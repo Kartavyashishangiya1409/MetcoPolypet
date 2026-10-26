@@ -5,17 +5,22 @@
   overflow: hidden;
 }
 
-.picture img {
+.cover {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-}
-
-.contain {
-  object-fit: contain;
-}
-
-.cover {
   object-fit: cover;
+}
+
+// Trimmed render, contained in a centred box of f × the slot.
+.pad {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(100% * var(--f));
+  height: calc(100% * var(--f));
+  max-width: none;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
 }

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: { unoptimized: true },
-  sassOptions: { loadPaths: [path.join(process.cwd(), 'styles')] },
+  sassOptions: { includePaths: [path.join(process.cwd(), 'styles')] },
   experimental: { optimizePackageImports: ['gsap'] },
   async headers() {
     return [

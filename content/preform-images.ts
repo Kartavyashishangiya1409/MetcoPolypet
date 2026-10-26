@@ -1,10 +1,17 @@
 // Every static preform render used on the site. `scripts/render-preforms.mjs` reads this file
-// and writes /public/images/preforms/<id>-<px>.{avif,webp} at 1x and 2x.
+// and writes /public/images/preforms/<id>-<px>.{avif,webp} at 1x and 2x, plus
+// content/preform-manifest.json.
 //
 // Render specs (layout/items/bg/pad/count/ox/oy) are copied from `Metco Polypet Website.dc.html`.
-// `w`/`h` are the CSS-pixel size of the slot at a 1440px viewport. The renderer frames the
-// object like `object-fit: contain` on a solid background, so non-pile renders are shown with
-// `contain` and stay faithful at every breakpoint; pile renders fill the frame and use `cover`.
+// `w`/`h` are the CSS-pixel size of the slot at a 1440px viewport.
+//
+// How a static render stays faithful at every slot size: the design's camera fits the object's
+// bounding box so it fills 1/pad of the slot's *limiting* dimension, on a solid background.
+//  - fit 'pad'   (single, tilt, trio, lineup): the render is trimmed to the object's pixels and
+//                the manifest records the fill fraction `f`. It is shown with object-fit:contain
+//                inside a centred box of f × the slot — identical framing at any aspect ratio.
+//  - fit 'cover' (pile, macro): the object intentionally runs off-frame, so the full render is
+//                shown with object-fit:cover (plus a portrait variant where the aspect flips).
 
 import { products, lineup } from './products.ts';
 import { story, necks, industries } from './home.ts';
@@ -26,7 +33,7 @@ export interface RenderSpec {
 export interface PreformImageSpec extends RenderSpec {
   w: number;
   h: number;
-  fit: 'contain' | 'cover';
+  fit: 'pad' | 'cover';
   /** Optional art-directed render for narrow screens */
   mobile?: { w: number; h: number; maxWidth: number };
 }
@@ -44,7 +51,7 @@ const S = (
   bg,
   w,
   h,
-  fit: layout === 'pile' ? 'cover' : 'contain',
+  fit: layout === 'pile' || layout === 'macro' ? 'cover' : 'pad',
   ...extra,
 });
 
@@ -82,7 +89,7 @@ const entries: [string, PreformImageSpec][] = [
     'infra-moulds',
     S('lineup', '28,98,clear;28,98,clear;28,98,clear;28,98,clear', BG.light, 320, 440, { pad: '1.2' }),
   ],
-  ['infra-lab', S('macro', '38,96,white', BG.light, 320, 440)],
+  ['infra-lab', S('macro', '38,96,white', BG.light, 320, 440, { mobile: { w: 335, h: 280, maxWidth: 667 } })],
   ['infra-store', S('trio', '46,112,amber;28,116,green;63,78,clear', BG.light, 320, 440, { pad: '1.25' })],
   ['team-1', S('tilt', '28,110,clear', BG.light, 430, 322)],
   ['team-2', S('tilt', '30,90,blue', BG.light, 430, 322)],
@@ -115,3 +122,7 @@ export const imagePath = (id: string, pxWidth: number, ext: 'avif' | 'webp' | 'p
 
 /** Extra PNG master used by opengraph-image (Satori can't read AVIF/WebP) */
 export const OG_SOURCE = { id: 'og-lineup', spec: S('lineup', lineup, BG.light, 1200, 520, { pad: '1.1' }) };
+
+/** Hero poster (LCP image) — source assets/hero-preform.png, 1122×1402 with alpha */
+export const HERO_POSTER = { width: 1122, height: 1402, widths: [420, 700, 1122] } as const;
+export const heroPosterPath = (w: number, ext: 'avif' | 'webp') => `/images/hero/hero-preform-${w}.${ext}`;

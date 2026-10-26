@@ -1,0 +1,148 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.hero {
+  position: relative;
+  overflow-x: clip; // the poster is wider than the column on phones (design clips at its root)
+  min-height: 100vh;
+  padding-top: $header-h;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  @include container;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr));
+  align-items: center;
+  gap: 24px;
+}
+
+.copy {
+  padding: clamp(40px, 8vh, 96px) 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.h1 {
+  margin: 0;
+  font-size: clamp(56px, 8.6vw, 144px);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+}
+
+.lede {
+  margin: 0;
+  max-width: 440px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.5;
+  color: $text-2;
+  text-wrap: pretty;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+}
+
+// 3D object column
+.obj {
+  position: relative;
+  height: clamp(440px, 82vh, 880px);
+}
+
+.intro {
+  position: absolute;
+  inset: 0;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+}
+
+.poster {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 88%;
+  width: auto;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  pointer-events: none;
+  transition: opacity 0.8s;
+}
+
+.viewer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity 1s $ease;
+}
+
+.ready {
+  .poster {
+    opacity: 0;
+  }
+  .viewer {
+    opacity: 1;
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+// Spec strip
+.specWrap {
+  @include container;
+}
+
+.specs {
+  margin: 0;
+  border-top: 1px solid $line;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 22px 0 28px;
+  font-family: $font-mono;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  > div {
+    display: flex;
+    gap: 10px;
+  }
+  dt {
+    color: $muted;
+  }
+  dd {
+    margin: 0;
+  }
+}
+
+.scrollCue {
+  justify-content: flex-end;
+}

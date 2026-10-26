@@ -1,0 +1,12 @@
+// Text tones used for the second/third line of display headings.
+@use 'tokens' as *;
+
+.accent {
+  color: $accent;
+}
+.grey {
+  color: $grey;
+}
+.darkGrey {
+  color: $dark-grey;
+}
