@@ -55,12 +55,22 @@ const S = (
   ...extra,
 });
 
+/**
+ * Macro renders: the design fits the neck "focus box" (~1.08:1) to the slot's limiting side. In
+ * any slot narrower than that it is width-limited, so one tall render (0.45:1) shown with
+ * `cover` reproduces the framing for every slot aspect from 0.45 to 1.08. Slots wider than the
+ * box (landscape phone layouts) get a `mobile` variant rendered at their own aspect.
+ */
+const macro = (w: number) => ({ w, h: Math.round(w / 0.45) });
+
 const entries: [string, PreformImageSpec][] = [
   // Home — story
-  ...story.map((s, i): [string, PreformImageSpec] => [
-    `story-${i + 1}`,
-    S(s.layout, s.pf, BG.light, 640, 620),
-  ]),
+  ...story.map((s, i): [string, PreformImageSpec] => {
+    const id = `story-${i + 1}`;
+    if (s.layout !== 'macro') return [id, S(s.layout, s.pf, BG.light, 640, 620)];
+    const { w, h } = macro(640);
+    return [id, S('macro', s.pf, BG.light, w, h, { mobile: { w: 335, h: 292, maxWidth: 759 } })];
+  }),
   // Home — range rail
   ...necks.map((k): [string, PreformImageSpec] => [`rail-${k.id}`, S('single', k.pf, BG.dark, 380, 420)]),
   // Home — industries thumbs
@@ -89,7 +99,12 @@ const entries: [string, PreformImageSpec][] = [
     'infra-moulds',
     S('lineup', '28,98,clear;28,98,clear;28,98,clear;28,98,clear', BG.light, 320, 440, { pad: '1.2' }),
   ],
-  ['infra-lab', S('macro', '38,96,white', BG.light, 320, 440, { mobile: { w: 335, h: 280, maxWidth: 667 } })],
+  [
+    'infra-lab',
+    S('macro', '38,96,white', BG.light, macro(320).w, macro(320).h, {
+      mobile: { w: 335, h: 280, maxWidth: 667 },
+    }),
+  ],
   ['infra-store', S('trio', '46,112,amber;28,116,green;63,78,clear', BG.light, 320, 440, { pad: '1.25' })],
   ['team-1', S('tilt', '28,110,clear', BG.light, 430, 322)],
   ['team-2', S('tilt', '30,90,blue', BG.light, 430, 322)],
@@ -97,7 +112,10 @@ const entries: [string, PreformImageSpec][] = [
   // Products
   ['products-lineup', S('lineup', lineup, BG.dark, 1328, 504, { pad: '1.15' })],
   ...products.map((p): [string, PreformImageSpec] => [`card-${p.id}`, S('single', p.pf, BG.light, 320, 420)]),
-  ...products.map((p): [string, PreformImageSpec] => [`macro-${p.id}`, S('macro', p.pf, BG.light, 600, 720)]),
+  ...products.map((p): [string, PreformImageSpec] => [
+    `macro-${p.id}`,
+    S('macro', p.pf, BG.light, macro(600).w, macro(600).h),
+  ]),
   // Contact
   ['contact-trio', S('trio', '30,90,blue;28,116,clear;48,150,amber', BG.dark, 1328, 560, { pad: '1.2' })],
 ];
