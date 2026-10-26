@@ -15,16 +15,31 @@ export function HeroStage({ children, label }: { children: ReactNode; label: str
   const [mount, setMount] = useState(false);
   const [ready, setReady] = useState(false);
 
+  // The poster already shows the preform, so the WebGL viewer (the heaviest work on the site)
+  // starts on the first interaction, or a few seconds after load when the main thread is idle.
   useEffect(() => {
-    const start = () => setMount(true);
-    const idle = (cb: () => void) =>
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const events = ['pointermove', 'pointerdown', 'touchstart', 'wheel', 'scroll', 'keydown'];
+    const start = () => {
+      events.forEach((e) => window.removeEventListener(e, start));
+      clearTimeout(timer);
+      setMount(true);
+    };
+    const idle = () =>
       typeof window.requestIdleCallback === 'function'
-        ? window.requestIdleCallback(cb, { timeout: 2500 })
-        : setTimeout(cb, 1200);
-    const go = () => idle(start);
-    if (document.readyState === 'complete') go();
-    else window.addEventListener('load', go, { once: true });
-    return () => window.removeEventListener('load', go);
+        ? window.requestIdleCallback(start, { timeout: 2000 })
+        : start();
+    const afterLoad = () => {
+      timer = setTimeout(idle, 3500);
+    };
+    events.forEach((e) => window.addEventListener(e, start, { once: true, passive: true }));
+    if (document.readyState === 'complete') afterLoad();
+    else window.addEventListener('load', afterLoad, { once: true });
+    return () => {
+      clearTimeout(timer);
+      events.forEach((e) => window.removeEventListener(e, start));
+      window.removeEventListener('load', afterLoad);
+    };
   }, []);
 
   return (

@@ -30,6 +30,7 @@ export function ProductDetail({ product: p, as: Heading = 'h2', headingId, close
           id={`macro-${p.id}`}
           alt={`${p.name} neck finish`}
           sizes="(min-width: 900px) 600px, 100vw"
+          priority
         />
       </div>
       <div className={s.body}>

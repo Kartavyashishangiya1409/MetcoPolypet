@@ -41,6 +41,14 @@ function studio() {
   return scene;
 }
 
+/** Let the browser paint / handle input between heavy setup steps. */
+const yieldToMain = () =>
+  new Promise<void>((resolve) => {
+    const sched = (globalThis as { scheduler?: { yield?: () => Promise<void> } }).scheduler;
+    if (sched?.yield) sched.yield().then(resolve);
+    else setTimeout(resolve, 0);
+  });
+
 function disposeScene(root: T.Object3D) {
   root.traverse((o) => {
     const mesh = o as T.Mesh;
@@ -63,6 +71,9 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     if (!host) return;
     let dead = false;
     let raf = 0;
+    let ready = false;
+    let envRT: T.WebGLRenderTarget | null = null;
+    let model: T.Object3D | null = null;
 
     const r = new T.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
     r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -75,12 +86,6 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
 
     const scene = new T.Scene();
     scene.background = new T.Color(bg);
-    const pm = new T.PMREMGenerator(r);
-    const studioScene = studio();
-    const envRT = pm.fromScene(studioScene, 0.02);
-    scene.environment = envRT.texture;
-    disposeScene(studioScene);
-    pm.dispose();
 
     // soft contact shadow
     const c = document.createElement('canvas');
@@ -127,43 +132,60 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     };
     glass.customProgramCacheKey = () => 'pfglb';
 
-    const loader = new GLTFLoader();
-    loader.setMeshoptDecoder(MeshoptDecoder);
-    let model: T.Object3D | null = null;
-    loader.load(
-      src,
-      (gltf) => {
-        if (dead) {
-          disposeScene(gltf.scene);
-          return;
-        }
-        const m = gltf.scene;
-        m.traverse((o) => {
-          const mesh = o as T.Mesh;
-          if (mesh.isMesh) {
-            if (!mesh.geometry.attributes.normal) mesh.geometry.computeVertexNormals();
-            (mesh.material as T.Material).dispose();
-            mesh.material = glass;
-            mesh.renderOrder = mesh.name.indexOf('Thread') >= 0 ? 2 : 1;
+    // Heavy setup is split into steps that yield to the main thread (no long tasks).
+    const boot = async () => {
+      await yieldToMain();
+      if (dead) return;
+      const pm = new T.PMREMGenerator(r);
+      const studioScene = studio();
+      envRT = pm.fromScene(studioScene, 0.02);
+      scene.environment = envRT.texture;
+      disposeScene(studioScene);
+      pm.dispose();
+      await yieldToMain();
+      if (dead) return;
+      const loader = new GLTFLoader();
+      loader.setMeshoptDecoder(MeshoptDecoder);
+      loader.load(
+        src,
+        (gltf) => {
+          if (dead) {
+            disposeScene(gltf.scene);
+            return;
           }
-        });
-        const box = new T.Box3().setFromObject(m);
-        const sz = box.getSize(new T.Vector3());
-        const ctr = box.getCenter(new T.Vector3());
-        const k = 10.6 / sz.y;
-        m.scale.setScalar(k);
-        m.position.set(-ctr.x * k, -ctr.y * k, -ctr.z * k);
-        spin.add(m);
-        model = m;
-        // Compile and draw one frame before announcing, so the cross-fade never shows a blank.
-        r.compile(scene, cam);
-        r.render(scene, cam);
-        host.dataset.ready = '';
-        onLoadRef.current?.();
-      },
-      undefined,
-      (e) => console.warn('hero preform load', e),
-    );
+          const m = gltf.scene;
+          m.traverse((o) => {
+            const mesh = o as T.Mesh;
+            if (mesh.isMesh) {
+              if (!mesh.geometry.attributes.normal) mesh.geometry.computeVertexNormals();
+              (mesh.material as T.Material).dispose();
+              mesh.material = glass;
+              mesh.renderOrder = mesh.name.indexOf('Thread') >= 0 ? 2 : 1;
+            }
+          });
+          const box = new T.Box3().setFromObject(m);
+          const sz = box.getSize(new T.Vector3());
+          const ctr = box.getCenter(new T.Vector3());
+          const k = 10.6 / sz.y;
+          m.scale.setScalar(k);
+          m.position.set(-ctr.x * k, -ctr.y * k, -ctr.z * k);
+          spin.add(m);
+          model = m;
+          // Compile shaders off the critical path (KHR_parallel_shader_compile where available)
+          // and draw one frame before announcing, so the cross-fade never shows a blank canvas.
+          r.compileAsync(scene, cam).then(() => {
+            if (dead) return;
+            r.render(scene, cam);
+            ready = true;
+            sync();
+            host.dataset.ready = '';
+            onLoadRef.current?.();
+          });
+        },
+        undefined,
+        (e) => console.warn('hero preform load', e),
+      );
+    };
 
     const fit = () => {
       const w = host.clientWidth || 1;
@@ -236,7 +258,7 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     // Only render while the hero is on screen and the tab is visible.
     let onScreen = true;
     const sync = () => {
-      const run = onScreen && !document.hidden;
+      const run = ready && onScreen && !document.hidden;
       if (run && !raf) {
         last = performance.now();
         raf = requestAnimationFrame(loop);
@@ -251,7 +273,7 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     });
     io.observe(host);
     document.addEventListener('visibilitychange', sync);
-    sync();
+    boot();
 
     return () => {
       dead = true;
@@ -266,7 +288,7 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
       if (model) model.traverse((o) => (o as T.Mesh).geometry?.dispose());
       glass.dispose();
       disposeScene(shadow);
-      envRT.dispose();
+      envRT?.dispose();
       r.dispose();
       r.forceContextLoss();
       cv.remove();
