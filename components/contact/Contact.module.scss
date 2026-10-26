@@ -1,0 +1,284 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.eyebrow {
+  @include eyebrow;
+}
+
+// Hero
+.hero {
+  @include container;
+  padding-top: calc(#{$header-h} + clamp(72px, 10vw, 140px));
+  padding-bottom: clamp(56px, 6vw, 88px);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.h1 {
+  @include display(clamp(52px, 8vw, 132px), 0.93, -0.05em);
+}
+.address {
+  font-style: normal;
+}
+.details {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 32px;
+  border-top: 1px solid $line;
+  padding-top: 32px;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  dt {
+    @include eyebrow($muted, 0.08em);
+  }
+  dd {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+}
+.details dd.plant {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.hours {
+  color: $muted;
+}
+.banner {
+  position: relative;
+  height: clamp(280px, 44vw, 560px);
+  border-radius: $r-xl;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+  background: $dark-surface;
+}
+
+// Quote: intro + map | form
+.quote {
+  @include container;
+  padding-bottom: clamp(96px, 12vw, 160px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  gap: clamp(40px, 5vw, 80px);
+}
+.quoteIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.h2 {
+  @include display(clamp(32px, 3.6vw, 52px), 1.02, -0.04em);
+}
+.quoteText {
+  margin: 0;
+  max-width: 400px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: $text-2;
+}
+.map {
+  position: relative;
+  margin-top: 20px;
+  height: clamp(280px, 36vw, 460px);
+  border-radius: $r-lg;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+  background: $surface;
+}
+.mapFrame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: grayscale(1) contrast(1.05);
+}
+
+// Form
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 28px 24px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.full {
+  grid-column: 1 / -1;
+}
+.label {
+  @include eyebrow($muted, 0.06em);
+}
+%control {
+  border: 0;
+  border-bottom: 1px solid $line-input;
+  background: transparent;
+  font-size: 18px;
+  color: $ink;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.2s;
+  &:focus {
+    border-bottom-color: $ink;
+  }
+  // Keep a visible keyboard focus indicator (WCAG 2.4.7) on top of the underline.
+  &:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 4px;
+  }
+  &::placeholder {
+    color: #8a8c88;
+  }
+}
+.input {
+  @extend %control;
+  height: 52px;
+  padding: 0;
+}
+select.input {
+  cursor: pointer;
+}
+.textarea {
+  @extend %control;
+  padding: 12px 0;
+  line-height: 1.5;
+  resize: vertical;
+}
+.invalid {
+  border-bottom-color: $error;
+}
+.err {
+  font-size: 13px;
+  color: $error;
+  min-height: 16px;
+}
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.submitRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 8px;
+}
+.hint {
+  font-size: 13px;
+  color: $muted;
+  max-width: 340px;
+}
+.formErr {
+  font-size: 14px;
+  color: $error;
+  max-width: 380px;
+}
+.submit {
+  height: 56px;
+  padding: 0 32px;
+  border-radius: $r-pill;
+  border: 0;
+  background: $ink;
+  color: $bg;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.25s;
+  &:hover {
+    background: $ink-hover;
+  }
+  &:disabled {
+    cursor: progress;
+    opacity: 0.7;
+  }
+}
+
+// Success
+.sent {
+  min-height: 100%;
+  border-radius: $r-xl;
+  background: $dark;
+  color: $dark-ink;
+  padding: clamp(36px, 5vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+}
+.sentLabel {
+  @include eyebrow($accent-light);
+}
+.sentBody {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sentTitle {
+  margin: 0;
+  font-size: clamp(32px, 3.6vw, 52px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+.sentNote {
+  margin: 0;
+  font-size: 16px;
+  color: $dark-text-2;
+}
+.again {
+  align-self: flex-start;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: $r-pill;
+  border: 1px solid rgba(237, 237, 232, 0.3);
+  background: transparent;
+  color: $dark-ink;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+// Departments
+.depts {
+  border-top: 1px solid $line;
+}
+.deptGrid {
+  @include container;
+  padding-top: clamp(64px, 8vw, 112px);
+  padding-bottom: clamp(64px, 8vw, 112px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 40px;
+}
+.dept {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.deptT {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.deptD {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: $text-3;
+}
+.deptE {
+  @include mono(13px);
+  color: $accent;
+}

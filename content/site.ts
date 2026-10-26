@@ -16,7 +16,8 @@ export const site = {
   },
   whatsapp: {
     label: 'Message us',
-    href: '#', // TODO: https://wa.me/91XXXXXXXXXX
+    // Derived from the phone number; override if WhatsApp uses a different number.
+    href: 'https://wa.me/910000000000',
   },
   email: {
     sales: 'sales@metcopolypet.com',
