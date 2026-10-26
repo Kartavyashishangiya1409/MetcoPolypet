@@ -1,0 +1,287 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.eyebrow {
+  @include eyebrow;
+}
+
+.h2 {
+  @include display;
+}
+.h2Gap {
+  margin-bottom: clamp(48px, 6vw, 88px);
+}
+.h2Sm {
+  @include display(clamp(36px, 4.4vw, 68px), 1);
+}
+.h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+// Hero
+.hero {
+  @include container;
+  padding-top: calc(#{$header-h} + clamp(72px, 12vw, 160px));
+  padding-bottom: clamp(56px, 6vw, 88px);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.h1 {
+  @include display(clamp(52px, 8vw, 132px), 0.93, -0.05em);
+  max-width: 1200px;
+}
+.bannerWrap {
+  @include container;
+}
+.banner {
+  position: relative;
+  height: clamp(360px, 70vh, 760px);
+  border-radius: $r-xl;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0%);
+  background: $surface;
+}
+
+// Who we are
+.brief {
+  @include container;
+  padding-top: clamp(96px, 12vw, 180px);
+  padding-bottom: clamp(96px, 12vw, 180px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 40px 64px;
+}
+.briefBody {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  @media (max-width: 634px) {
+    grid-column: auto;
+  }
+}
+.briefLead {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+.briefText {
+  margin: 0;
+  max-width: 620px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: $text-2;
+  text-wrap: pretty;
+}
+
+// Figures
+.figures {
+  background: $dark;
+  color: $dark-ink;
+}
+.figuresGrid {
+  @include container;
+  padding-top: clamp(80px, 10vw, 140px);
+  padding-bottom: clamp(80px, 10vw, 140px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 48px 32px;
+}
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid $dark-line;
+  padding-top: 24px;
+}
+.figureV {
+  font-size: clamp(52px, 6vw, 96px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+.figureK {
+  @include eyebrow($dark-muted, 0.08em);
+}
+
+// Milestones
+.section {
+  @include container;
+  padding-top: clamp(96px, 12vw, 180px);
+  padding-bottom: clamp(96px, 12vw, 180px);
+}
+.milestones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid $line;
+}
+.milestone {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px 40px;
+  padding: 36px 0;
+  border-bottom: 1px solid $line;
+}
+.year {
+  font-size: clamp(32px, 3.4vw, 52px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: $accent;
+}
+.mDesc {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $text-3;
+}
+
+// Infrastructure
+.infra {
+  @include container;
+  padding-bottom: clamp(96px, 12vw, 180px);
+}
+.infraHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+.side {
+  margin: 0;
+  max-width: 380px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: $text-2;
+}
+.infraGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+}
+.infraItem {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.infraMedia {
+  position: relative;
+  height: clamp(280px, 34vw, 440px);
+  border-radius: $r-lg;
+  overflow: hidden;
+  background: $surface;
+}
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.captionT {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.captionD {
+  font-size: 15px;
+  line-height: 1.5;
+  color: $text-3;
+}
+
+// Quality
+.quality {
+  border-top: 1px solid $line;
+}
+.qualityGrid {
+  @include container;
+  padding-top: clamp(80px, 10vw, 140px);
+  padding-bottom: clamp(80px, 10vw, 140px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 56px;
+}
+.qualityIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.qualityText {
+  margin: 0;
+  max-width: 480px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: $text-2;
+  text-wrap: pretty;
+}
+.certs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid $line;
+}
+.cert {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid $line;
+}
+.certN {
+  font-size: 19px;
+  font-weight: 500;
+}
+.certD {
+  @include mono;
+  color: $muted;
+  text-align: right;
+}
+
+// Leadership
+.team {
+  @include container;
+  padding-top: clamp(80px, 10vw, 140px);
+  padding-bottom: clamp(80px, 10vw, 140px);
+}
+.teamH {
+  margin-bottom: 48px;
+}
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 20px;
+}
+.member {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.portrait {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: $r-lg;
+  overflow: hidden;
+  background: $surface;
+}
+.memberCap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.memberN {
+  font-size: 20px;
+  font-weight: 500;
+}
+.memberR {
+  @include mono;
+  color: $muted;
+}
