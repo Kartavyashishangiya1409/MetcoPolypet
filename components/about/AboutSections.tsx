@@ -22,7 +22,9 @@ export function AboutHero() {
           lines={[
             'We make the part',
             'every bottle',
-            <span key="s" className={t.grey}>starts from.</span>,
+            <span key="s" className={t.grey}>
+              starts from.
+            </span>,
           ]}
         />
       </section>

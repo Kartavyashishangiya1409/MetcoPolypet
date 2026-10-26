@@ -5,5 +5,8 @@ export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
-  return renderOg({ eyebrow: 'Contact', title: 'Tell us the neck finish and gram weight. We’ll send a quote.' });
+  return renderOg({
+    eyebrow: 'Contact',
+    title: 'Tell us the neck finish and gram weight. We’ll send a quote.',
+  });
 }

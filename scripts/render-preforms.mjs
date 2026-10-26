@@ -18,12 +18,7 @@ import { dirname, join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import sharp from 'sharp';
-import {
-  preformImages,
-  renderSizes,
-  OG_SOURCE,
-  HERO_POSTER,
-} from '../content/preform-images.ts';
+import { preformImages, renderSizes, OG_SOURCE, HERO_POSTER } from '../content/preform-images.ts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public/images/preforms');
@@ -141,7 +136,9 @@ if (!only || only.includes(OG_SOURCE.id)) {
   const target = join(outDir, `${OG_SOURCE.id}.png`);
   if (force || !(await exists(target))) {
     const { w, h } = OG_SOURCE.spec;
-    await sharp(await render(OG_SOURCE.spec, w, h)).png({ compressionLevel: 9 }).toFile(target);
+    await sharp(await render(OG_SOURCE.spec, w, h))
+      .png({ compressionLevel: 9 })
+      .toFile(target);
     console.log(`✓ ${OG_SOURCE.id}`);
   }
 }
@@ -165,4 +162,6 @@ for (const w of HERO_POSTER.widths) {
     console.log(`✓ hero-preform ${w}w ${f}`);
   }
 }
-console.log(`\nRendered ${done}, skipped ${skipped} (already present). Output: public/images/preforms/`);
+console.log(
+  `\nRendered ${done}, skipped ${skipped} (already present). Output: public/images/preforms/`,
+);

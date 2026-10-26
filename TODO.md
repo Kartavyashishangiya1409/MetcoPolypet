@@ -7,17 +7,17 @@ phone) flows from `content/site.ts` into the header menu, footer, contact page, 
 
 ## Company details — `content/site.ts`
 
-| Field | Placeholder | Used in |
-|---|---|---|
-| Legal name suffix | `Metco Polypet [Pvt. Ltd.]` | Footer, JSON-LD `legalName`, llms.txt |
-| Phone (display + `tel`) | `+91 [00000 00000]` / `+910000000000` | Menu, footer, contact, JSON-LD |
-| WhatsApp link | `https://wa.me/910000000000` | Contact "Message us" (derived from phone; change if different) |
-| Street | `[Plot no., Industrial area]` | Contact, JSON-LD address |
-| City / State / PIN | `[City]`, `[State]`, `[PIN]` (+ `short`, `cityLine`) | Footer, contact, About copy, JSON-LD |
-| Plant coordinates | `geo: null` | Map embed (shows India until set) |
-| GSTIN | `[00XXXXX0000X0X0]` | Footer (added to JSON-LD `taxID` once real) |
-| Founding year | `[Year]` | About copy (added to JSON-LD `foundingDate` once real) |
-| LinkedIn / IndiaMART URLs | empty `href` | Footer (rendered as plain text until set), JSON-LD `sameAs` |
+| Field                     | Placeholder                                          | Used in                                                        |
+| ------------------------- | ---------------------------------------------------- | -------------------------------------------------------------- |
+| Legal name suffix         | `Metco Polypet [Pvt. Ltd.]`                          | Footer, JSON-LD `legalName`, llms.txt                          |
+| Phone (display + `tel`)   | `+91 [00000 00000]` / `+910000000000`                | Menu, footer, contact, JSON-LD                                 |
+| WhatsApp link             | `https://wa.me/910000000000`                         | Contact "Message us" (derived from phone; change if different) |
+| Street                    | `[Plot no., Industrial area]`                        | Contact, JSON-LD address                                       |
+| City / State / PIN        | `[City]`, `[State]`, `[PIN]` (+ `short`, `cityLine`) | Footer, contact, About copy, JSON-LD                           |
+| Plant coordinates         | `geo: null`                                          | Map embed (shows India until set)                              |
+| GSTIN                     | `[00XXXXX0000X0X0]`                                  | Footer (added to JSON-LD `taxID` once real)                    |
+| Founding year             | `[Year]`                                             | About copy (added to JSON-LD `foundingDate` once real)         |
+| LinkedIn / IndiaMART URLs | empty `href`                                         | Footer (rendered as plain text until set), JSON-LD `sameAs`    |
 
 ## Figures, history, certifications, people — `content/about.ts`
 
@@ -37,7 +37,7 @@ phone) flows from `content/site.ts` into the header menu, footer, contact page, 
 - [ ] **Leadership portraits** (3, 4:3) — replace the placeholder preform renders in `components/about/AboutSections.tsx` (`Leadership`)
 - [ ] **Client logos** (monochrome SVG, ~5) — replace the `[Client logo]` slots in `components/home/HomeSections.tsx` (`Clients`)
 - [ ] **Spec sheet PDFs** per product — add to `public/spec-sheets/` and map them in `SPEC_SHEETS` in `content/products.ts` (until then the link emails sales)
-- [ ] *Optional:* real plant photography (machines, mould shop, QC lab, warehouse, factory floor) to replace or sit alongside the 3D renders in About › Infrastructure and Home › Manufacturing
+- [ ] _Optional:_ real plant photography (machines, mould shop, QC lab, warehouse, factory floor) to replace or sit alongside the 3D renders in About › Infrastructure and Home › Manufacturing
 
 ## Before launch
 

@@ -16,7 +16,12 @@ export function Industries() {
           <SplitLines
             id="ind-h"
             className={s.h2}
-            lines={['Six markets.', <span key="o" className={t.grey}>One standard.</span>]}
+            lines={[
+              'Six markets.',
+              <span key="o" className={t.grey}>
+                One standard.
+              </span>,
+            ]}
           />
         </div>
         <ul className={s.list}>

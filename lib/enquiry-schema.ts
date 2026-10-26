@@ -36,7 +36,15 @@ export type EnquiryState = {
   values?: Partial<Enquiry>;
 };
 
-export const FIELDS: EnquiryField[] = ['name', 'company', 'email', 'phone', 'product', 'qty', 'message'];
+export const FIELDS: EnquiryField[] = [
+  'name',
+  'company',
+  'email',
+  'phone',
+  'product',
+  'qty',
+  'message',
+];
 
 export function readEnquiry(fd: FormData) {
   return Object.fromEntries(FIELDS.map((k) => [k, String(fd.get(k) ?? '')])) as Enquiry;

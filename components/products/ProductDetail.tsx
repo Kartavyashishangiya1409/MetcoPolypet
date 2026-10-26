@@ -17,7 +17,13 @@ type Props = {
 };
 
 /** Macro image + spec table + quote CTA — the design's product detail panel. */
-export function ProductDetail({ product: p, as: Heading = 'h2', headingId, close, summary }: Props) {
+export function ProductDetail({
+  product: p,
+  as: Heading = 'h2',
+  headingId,
+  close,
+  summary,
+}: Props) {
   const pdf = specSheetHref(p);
   const specHref =
     pdf ??

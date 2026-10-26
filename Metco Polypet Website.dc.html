@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>PET Preform Manufacturer | Metco Polypet</title>
+<meta name="description" content="Metco Polypet manufactures PET preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g for water, CSD, juice, edible oil, pharma and personal care.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="./image-slot.js"></script>
+<script src="./preform-3d.js"></script>
+<script src="./preform-img.js"></script>
+<script src="./preform-glb.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Metco Polypet","description":"Manufacturer of PET preforms for beverage, edible oil, pharma and personal care packaging.","url":"https://www.metcopolypet.com","contactPoint":{"@type":"ContactPoint","contactType":"sales","areaServed":"IN"}}</script>
+<style>
+html,body{margin:0;padding:0;background:#F4F4F1;color:#121312;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+*{box-sizing:border-box}
+a{color:#121312;text-decoration:none}a:hover{color:#3b6f75}
+::selection{background:#121312;color:#F4F4F1}
+button,input,select,textarea{font-family:inherit}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="background:#F4F4F1;color:#121312;min-height:100vh;overflow-x:clip">
+
+<header ref="{{ headRef }}" style="position:fixed;top:0;left:0;right:0;z-index:50;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s,border-color .4s;transform:translateY({{ headY }});background:{{ headBg }};backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid {{ headLine }}">
+  <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px);height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#/home" onClick="{{ goHome }}" aria-label="Metco Polypet home" style="display:flex;align-items:center;gap:10px;color:#121312">
+      <span style="width:22px;height:22px;border-radius:50%;border:1.5px solid #121312;display:grid;place-items:center"><span style="width:8px;height:8px;border-radius:50%;background:#121312"></span></span>
+      <span style="font-size:17px;font-weight:600;letter-spacing:-.02em">Metco Polypet</span>
+    </a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Primary" style="display:flex;align-items:center;gap:36px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+          <a href="{{ n.href }}" onClick="{{ n.go }}" style="font-size:14px;font-weight:500;color:{{ n.color }};transition:color .2s">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+      <a href="#/contact" onClick="{{ goContact }}" style="display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:999px;background:#121312;color:#F4F4F1;font-size:14px;font-weight:500;transition:background .25s" style-hover="background:#2c2e2c;color:#F4F4F1">Get a quote</a>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" style="height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(18,19,18,.2);background:transparent;font-size:14px;font-weight:500;color:#121312;cursor:pointer">{{ menuLabel }}</button>
+    </sc-if>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:45;background:#F4F4F1;padding:110px 24px 40px;display:flex;flex-direction:column;justify-content:space-between">
+    <nav aria-label="Mobile" style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+        <a href="{{ n.href }}" onClick="{{ n.go }}" style="font-size:52px;font-weight:500;letter-spacing:-.04em;line-height:1.1;color:#121312">{{ n.label }}</a>
+      </sc-for>
+    </nav>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#5E605C;display:flex;flex-direction:column;gap:6px"><span>sales@metcopolypet.com</span><span>+91 [00000 00000]</span></div>
+  </div>
+</sc-if>
+
+<div ref="{{ panelRef }}" aria-hidden="true" style="position:fixed;left:0;right:0;top:100%;height:100vh;z-index:80;background:#0C0D0D;color:#EDEDE8;display:flex;align-items:flex-end;padding:0 clamp(20px,4vw,56px) 48px;pointer-events:none">
+  <span style="font-size:clamp(56px,10vw,160px);font-weight:500;letter-spacing:-.045em;line-height:.9">{{ transLabel }}</span>
+</div>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<article data-screen-label="Home">
+
+  <section aria-labelledby="home-h1" style="position:relative;min-height:100vh;padding-top:68px;display:flex;flex-direction:column">
+    <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(20px,4vw,56px);flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));align-items:center;gap:24px">
+      <div style="padding:clamp(40px,8vh,96px) 0 24px;display:flex;flex-direction:column;gap:36px">
+        <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">PET preform manufacturer · India</span>
+        <h1 id="home-h1" data-split="" data-now="" style="margin:0;font-size:clamp(56px,8.6vw,144px);line-height:.92;letter-spacing:-.05em;font-weight:500">
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Precision</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">in every</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#3b6f75">preform.</span></span>
+        </h1>
+        <p data-fade="" style="margin:0;max-width:440px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:#3E403D;text-wrap:pretty">Injection-moulded PET preforms for water, soft drinks, juice, edible oil, pharma and personal care. Every neck finish, every gram weight, made to your closure spec.</p>
+        <div data-fade="" style="display:flex;flex-wrap:wrap;align-items:center;gap:28px">
+          <a href="#/products" onClick="{{ goProducts }}" style="display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 28px;border-radius:999px;background:#121312;color:#F4F4F1;font-size:15px;font-weight:500;transition:background .25s" style-hover="background:#2c2e2c;color:#F4F4F1">Explore preforms <span aria-hidden="true">→</span></a>
+          <a href="#/contact" onClick="{{ goContact }}" style="font-size:15px;font-weight:500;border-bottom:1px solid currentColor;padding-bottom:2px">Request a quote</a>
+        </div>
+      </div>
+      <div data-hero-obj="" style="position:relative;height:clamp(440px,82vh,880px)">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;perspective:1400px">
+                    <img data-poster="" src="./assets/hero-preform.png" alt="" aria-hidden="true" width="1122" height="1402" fetchPriority="high" style="position:absolute;left:50%;top:50%;height:88%;width:auto;transform:translate(-50%,-50%);object-fit:contain;pointer-events:none">
+          <preform-glb src="./assets/metco-pet-preform.glb" bg="#F4F4F1" role="img" aria-label="Clear 28 mm PET preform by Metco Polypet, drag to rotate" style="position:absolute;inset:0;display:block"></preform-glb>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1440px;width:100%;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+      <dl data-fade="" style="margin:0;border-top:1px solid rgba(18,19,18,.14);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;padding:22px 0 28px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase">
+        <div style="display:flex;gap:10px"><dt style="color:#5E605C">Neck finishes</dt><dd style="margin:0">20 – 63 mm</dd></div>
+        <div style="display:flex;gap:10px"><dt style="color:#5E605C">Gram weights</dt><dd style="margin:0">6 – 85 g</dd></div>
+        <div style="display:flex;gap:10px"><dt style="color:#5E605C">Material</dt><dd style="margin:0">Food-grade PET</dd></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end"><dt style="color:#5E605C">Scroll</dt><dd style="margin:0">↓</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section aria-label="About Metco Polypet in brief" style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vw,200px) clamp(20px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:40px 64px">
+      <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">In brief</span>
+      <p data-fade="" style="grid-column:span 2;margin:0;font-size:clamp(28px,3.4vw,52px);line-height:1.12;letter-spacing:-.03em;font-weight:500;text-wrap:pretty">Metco Polypet is an Indian manufacturer of PET preforms. We supply bottlers and brand owners with preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g, <span style="color:#7A7C78">moulded from food-grade resin and checked against closure specifications before dispatch.</span></p>
+    </div>
+  </section>
+
+  <section data-story="" aria-label="What sets our preforms apart" style="position:relative;height:420vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center">
+      <div style="max-width:1440px;width:100%;margin:0 auto;padding:68px clamp(20px,4vw,56px) 0;display:grid;grid-template-columns:{{ storyCols }};gap:clamp(20px,5vw,80px);align-items:center">
+        <div style="position:relative;display:flex;gap:28px">
+          <div style="width:2px;align-self:stretch;background:rgba(18,19,18,.1);position:relative;flex:none"><div data-story-bar="" style="position:absolute;inset:0;background:#121312;transform-origin:top"></div></div>
+          <div style="position:relative;flex:1;min-height:{{ storyTextH }}">
+            <sc-for list="{{ story }}" as="s" hint-placeholder-count="4">
+              <div data-story-item="" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:24px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;color:#5E605C">{{ s.n }} / 04</span>
+                <h2 style="margin:0;font-size:clamp(40px,5.4vw,84px);line-height:.98;letter-spacing:-.045em;font-weight:500;text-wrap:balance">{{ s.title }}</h2>
+                <p style="margin:0;max-width:420px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:#4C4E4A">{{ s.spec }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="position:relative;height:{{ storyImgH }};border-radius:28px;overflow:hidden;background:#E7E7E2">
+          <sc-for list="{{ story }}" as="s" hint-placeholder-count="4">
+            <div data-story-img="" style="position:absolute;inset:0"><preform-img layout="{{ s.layout }}" items="{{ s.pf }}" bg="#E7E7E2" alt="{{ s.title }}" style="display:block;overflow:hidden;background:#E7E7E2;position:absolute;inset:0"></preform-img></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-rail="" aria-labelledby="range-h" style="position:relative;height:320vh;background:#0C0D0D;color:#EDEDE8">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,5vh,56px)">
+      <div style="max-width:1440px;width:100%;margin:0 auto;padding:68px clamp(20px,4vw,56px) 0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
+        <h2 id="range-h" style="margin:0;font-size:clamp(40px,6vw,96px);line-height:.95;letter-spacing:-.045em;font-weight:500">The range,<br><span style="color:#8E908C">by neck finish.</span></h2>
+        <a href="#/products" onClick="{{ goProducts }}" style="color:#EDEDE8;font-size:15px;font-weight:500;border-bottom:1px solid currentColor;padding-bottom:2px" style-hover="color:#9fd3d8">View full catalogue →</a>
+      </div>
+      <div data-rail-track="" style="display:flex;gap:20px;width:max-content;padding:0 clamp(20px,4vw,56px)">
+        <sc-for list="{{ necks }}" as="k" hint-placeholder-count="7">
+          <article style="width:clamp(260px,26vw,380px);flex:none;display:flex;flex-direction:column;gap:18px">
+            <div style="height:clamp(300px,46vh,480px);border-radius:22px;overflow:hidden;background:#1A1B1B"><preform-img layout="single" items="{{ k.pf }}" bg="#1A1B1B" alt="{{ k.name }} PET preform" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#1A1B1B"></preform-img></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+              <h3 style="margin:0;font-size:22px;font-weight:500;letter-spacing:-.02em">{{ k.name }}</h3>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9fd3d8">{{ k.range }}</span>
+            </div>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#9A9C98">{{ k.app }}</span>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ind-h" style="max-width:1440px;margin:0 auto;padding:clamp(96px,12vw,180px) clamp(20px,4vw,56px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px">
+      <div style="align-self:start;position:sticky;top:120px;display:flex;flex-direction:column;gap:24px">
+        <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">Industries</span>
+        <h2 id="ind-h" data-split="" style="margin:0;font-size:clamp(40px,5.4vw,84px);line-height:.98;letter-spacing:-.045em;font-weight:500">
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Six markets.</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#7A7C78">One standard.</span></span>
+        </h2>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(18,19,18,.14)">
+        <sc-for list="{{ industries }}" as="i" hint-placeholder-count="6">
+          <li data-fade="" style="display:grid;grid-template-columns:44px 1fr 96px;gap:20px;align-items:center;padding:26px 0;border-bottom:1px solid rgba(18,19,18,.14)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E605C">{{ i.n }}</span>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h3 style="margin:0;font-size:clamp(22px,2.2vw,32px);font-weight:500;letter-spacing:-.03em">{{ i.name }}</h3>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E605C">{{ i.necks }}</span>
+            </div>
+            <div style="width:96px;height:72px;border-radius:12px;overflow:hidden;background:#E7E7E2"><preform-img layout="tilt" items="{{ i.pf }}" bg="#E7E7E2" alt="{{ i.name }} preform" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#E7E7E2"></preform-img></div>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="mfg-h" style="position:relative;height:clamp(560px,100vh,980px);overflow:hidden;background:#0C0D0D;color:#EDEDE8">
+    <div data-parallax="" style="position:absolute;left:0;right:0;top:-10%;height:120%"><preform-img layout="pile" count="28" pad="1.15" ox="6" oy="1.5" items="28,98,clear;30,90,blue;28,110,clear;28,116,clear" bg="#0C0D0D" alt="PET preforms" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#0C0D0D"></preform-img></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,13,13,.2) 0%,rgba(12,13,13,.55) 45%,rgba(12,13,13,.95) 80%);pointer-events:none"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;pointer-events:none">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px) clamp(40px,7vw,88px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px;align-items:end">
+        <h2 id="mfg-h" data-split="" style="margin:0;font-size:clamp(44px,6.4vw,104px);line-height:.94;letter-spacing:-.045em;font-weight:500">
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Built on the</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">factory floor.</span></span>
+        </h2>
+        <p data-fade="" style="margin:0;max-width:440px;font-size:18px;line-height:1.55;color:#D6D7D2;justify-self:end;text-wrap:pretty">Hot-runner multi-cavity moulds, automated resin drying and handling, and closed packing lines keep preforms clean from hopper to carton.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="q-h" style="max-width:1440px;margin:0 auto;padding:clamp(96px,12vw,180px) clamp(20px,4vw,56px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:clamp(48px,6vw,88px)">
+      <h2 id="q-h" data-split="" style="margin:0;font-size:clamp(40px,5.4vw,84px);line-height:.98;letter-spacing:-.045em;font-weight:500">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">From resin</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">to carton.</span></span>
+      </h2>
+      <p data-fade="" style="margin:0;max-width:380px;font-size:17px;line-height:1.55;color:#3E403D">Five controlled stages. Every batch is traceable to its resin lot, machine and shift.</p>
+    </div>
+    <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:1px;background:rgba(18,19,18,.14);border:1px solid rgba(18,19,18,.14);border-radius:24px;overflow:hidden">
+      <sc-for list="{{ process }}" as="p" hint-placeholder-count="5">
+        <li data-fade="" style="background:#F4F4F1;padding:32px 28px 40px;display:flex;flex-direction:column;gap:56px;min-height:280px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#3b6f75">{{ p.n }}</span>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <h3 style="margin:0;font-size:24px;font-weight:500;letter-spacing:-.03em">{{ p.name }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.55;color:#4C4E4A">{{ p.text }}</p>
+          </div>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+
+  <section aria-label="Clients" style="border-top:1px solid rgba(18,19,18,.14);border-bottom:1px solid rgba(18,19,18,.14)">
+    <div style="max-width:1440px;margin:0 auto;padding:44px clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:24px;align-items:center">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">Trusted by</span>
+      <sc-for list="{{ logos }}" as="l" hint-placeholder-count="5">
+        <div style="height:48px"><image-slot id="logo-{{ l }}" shape="rect" fit="contain" placeholder="Client logo (mono)"></image-slot></div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="cta-h" style="max-width:1440px;margin:0 auto;padding:clamp(120px,16vw,240px) clamp(20px,4vw,56px);display:flex;flex-direction:column;align-items:flex-start;gap:44px">
+    <h2 id="cta-h" data-split="" style="margin:0;font-size:clamp(44px,7vw,120px);line-height:.94;letter-spacing:-.05em;font-weight:500;max-width:1200px">
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Tell us the neck finish</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">and gram weight.</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#7A7C78">We'll send a quote.</span></span>
+    </h2>
+    <a data-fade="" href="#/contact" onClick="{{ goContact }}" style="display:inline-flex;align-items:center;gap:12px;height:58px;padding:0 32px;border-radius:999px;background:#121312;color:#F4F4F1;font-size:16px;font-weight:500;transition:background .25s" style-hover="background:#2c2e2c;color:#F4F4F1">Start an enquiry <span aria-hidden="true">→</span></a>
+  </section>
+
+</article>
+</sc-if>
+
+<!-- ============ ABOUT ============ -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<article data-screen-label="About">
+  <section aria-labelledby="about-h1" style="max-width:1440px;margin:0 auto;padding:calc(68px + clamp(72px,12vw,160px)) clamp(20px,4vw,56px) clamp(56px,6vw,88px);display:flex;flex-direction:column;gap:40px">
+    <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">About Metco Polypet</span>
+    <h1 id="about-h1" data-split="" data-now="" style="margin:0;font-size:clamp(52px,8vw,132px);line-height:.93;letter-spacing:-.05em;font-weight:500;max-width:1200px">
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">We make the part</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">every bottle</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#7A7C78">starts from.</span></span>
+    </h1>
+  </section>
+  <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px)">
+    <div data-wipe="" style="height:clamp(360px,70vh,760px);border-radius:28px;overflow:hidden;clip-path:inset(0% 0% 0% 0%);background:#E7E7E2"><div style="width:100%;height:100%"><preform-img layout="lineup" items="{{ lineup }}" bg="#E7E7E2" pad="1.15" alt="Metco Polypet PET preform range" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#E7E7E2"></preform-img></div></div>
+  </div>
+
+  <section aria-label="About in brief" style="max-width:1440px;margin:0 auto;padding:clamp(96px,12vw,180px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:40px 64px">
+    <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">Who we are</span>
+    <div style="grid-column:span 2;display:flex;flex-direction:column;gap:28px">
+      <p data-fade="" style="margin:0;font-size:clamp(26px,3vw,44px);line-height:1.15;letter-spacing:-.03em;font-weight:500;text-wrap:pretty">Metco Polypet has manufactured PET preforms in [City], India since [Year]. We serve bottlers of water, soft drinks, juice, edible oil, pharmaceuticals and personal care products.</p>
+      <p data-fade="" style="margin:0;max-width:620px;font-size:18px;line-height:1.6;color:#3E403D;text-wrap:pretty">Our work is narrow on purpose. We make preforms and the moulds behind them, and we spend our time on the details buyers care about: neck dimensions that seal, weights that stay consistent, and deliveries that arrive when lines need them.</p>
+    </div>
+  </section>
+
+  <section aria-label="Key figures" style="background:#0C0D0D;color:#EDEDE8">
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:48px 32px">
+      <sc-for list="{{ figures }}" as="f" hint-placeholder-count="4">
+        <div data-fade="" style="display:flex;flex-direction:column;gap:14px;border-top:1px solid rgba(237,237,232,.18);padding-top:24px">
+          <span style="font-size:clamp(52px,6vw,96px);font-weight:500;letter-spacing:-.05em;line-height:1">{{ f.v }}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9A9C98">{{ f.k }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="story-h" style="max-width:1440px;margin:0 auto;padding:clamp(96px,12vw,180px) clamp(20px,4vw,56px)">
+    <h2 id="story-h" data-split="" style="margin:0 0 clamp(48px,6vw,88px);font-size:clamp(40px,5.4vw,84px);line-height:.98;letter-spacing:-.045em;font-weight:500">
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">How we got here.</span></span>
+    </h2>
+    <ol style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(18,19,18,.14)">
+      <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="4">
+        <li data-fade="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px 40px;padding:36px 0;border-bottom:1px solid rgba(18,19,18,.14)">
+          <span style="font-size:clamp(32px,3.4vw,52px);font-weight:500;letter-spacing:-.04em;color:#3b6f75">{{ m.y }}</span>
+          <h3 style="margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em">{{ m.t }}</h3>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#4C4E4A">{{ m.d }}</p>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+
+  <section aria-labelledby="infra-h" style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px) clamp(96px,12vw,180px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px">
+      <h2 id="infra-h" data-split="" style="margin:0;font-size:clamp(40px,5.4vw,84px);line-height:.98;letter-spacing:-.045em;font-weight:500"><span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Infrastructure.</span></span></h2>
+      <p data-fade="" style="margin:0;max-width:380px;font-size:17px;line-height:1.55;color:#3E403D">Everything that touches the preform is under one roof.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+      <sc-for list="{{ infra }}" as="x" hint-placeholder-count="4">
+        <figure data-fade="" style="margin:0;display:flex;flex-direction:column;gap:16px">
+          <div style="height:clamp(280px,34vw,440px);border-radius:22px;overflow:hidden;background:#E7E7E2"><preform-img layout="{{ x.layout }}" items="{{ x.pf }}" count="{{ x.count }}" pad="{{ x.pad }}" bg="#E7E7E2" alt="{{ x.t }}" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#E7E7E2"></preform-img></div>
+          <figcaption style="display:flex;flex-direction:column;gap:6px"><span style="font-size:20px;font-weight:500;letter-spacing:-.02em">{{ x.t }}</span><span style="font-size:15px;line-height:1.5;color:#4C4E4A">{{ x.d }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="cert-h" style="border-top:1px solid rgba(18,19,18,.14)">
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <h2 id="cert-h" data-split="" style="margin:0;font-size:clamp(36px,4.4vw,68px);line-height:1;letter-spacing:-.045em;font-weight:500"><span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Quality &amp; sustainability</span></span></h2>
+        <p data-fade="" style="margin:0;max-width:480px;font-size:17px;line-height:1.6;color:#3E403D;text-wrap:pretty">We work with brand owners on lighter preform designs that use less resin per bottle, and on rPET blends where food-contact regulations allow. Process scrap is segregated and reground under control.</p>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(18,19,18,.14)">
+        <sc-for list="{{ certs }}" as="c" hint-placeholder-count="4">
+          <li data-fade="" style="display:flex;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid rgba(18,19,18,.14)"><span style="font-size:19px;font-weight:500">{{ c.n }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E605C;text-align:right">{{ c.d }}</span></li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="team-h" style="max-width:1440px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,56px)">
+    <h2 id="team-h" data-split="" style="margin:0 0 48px;font-size:clamp(36px,4.4vw,68px);line-height:1;letter-spacing:-.045em;font-weight:500"><span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Leadership</span></span></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px">
+      <sc-for list="{{ team }}" as="t" hint-placeholder-count="3">
+        <figure data-fade="" style="margin:0;display:flex;flex-direction:column;gap:14px">
+          <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;background:#E7E7E2"><preform-img layout="tilt" items="{{ t.pf }}" bg="#E7E7E2" alt="" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#E7E7E2"></preform-img></div>
+          <figcaption style="display:flex;flex-direction:column;gap:4px"><span style="font-size:20px;font-weight:500">{{ t.n }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E605C">{{ t.r }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </section>
+</article>
+</sc-if>
+
+<!-- ============ PRODUCTS ============ -->
+<sc-if value="{{ isProducts }}" hint-placeholder-val="{{ false }}">
+<article data-screen-label="Products">
+  <section aria-labelledby="prod-h1" style="background:#0C0D0D;color:#EDEDE8;padding-top:68px">
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(72px,10vw,140px) clamp(20px,4vw,56px) 0;display:flex;flex-direction:column;gap:36px">
+      <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9A9C98">Products</span>
+      <h1 id="prod-h1" data-split="" data-now="" style="margin:0;font-size:clamp(52px,8vw,132px);line-height:.93;letter-spacing:-.05em;font-weight:500">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">PET preforms,</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#8E908C">every size.</span></span>
+      </h1>
+      <p data-fade="" style="margin:0;max-width:560px;font-size:18px;line-height:1.55;color:#D6D7D2;text-wrap:pretty">Standard preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g, in clear, tinted and opaque colours. Custom designs on request.</p>
+    </div>
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(48px,6vw,80px) clamp(20px,4vw,56px) 0">
+      <div data-wipe="" style="height:clamp(320px,56vh,620px);border-radius:28px 28px 0 0;overflow:hidden;clip-path:inset(0% 0% 0% 0%);background:#1A1B1B"><div style="width:100%;height:100%"><preform-img layout="lineup" items="{{ lineup }}" bg="#1A1B1B" pad="1.15" alt="PET preform lineup" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#1A1B1B"></preform-img></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cat-h" style="max-width:1440px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(20px,4vw,56px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:36px">
+      <h2 id="cat-h" style="margin:0;font-size:clamp(36px,4.4vw,68px);line-height:1;letter-spacing:-.045em;font-weight:500">Catalogue</h2>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E605C">{{ countLabel }}</span>
+    </div>
+    <div role="tablist" aria-label="Filter by application" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="8">
+        <button role="tab" aria-selected="{{ c.on }}" onClick="{{ c.pick }}" style="height:40px;padding:0 18px;border-radius:999px;border:1px solid {{ c.line }};background:{{ c.bg }};color:{{ c.fg }};font-size:14px;font-weight:500;cursor:pointer;transition:all .25s">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:40px 20px">
+      <sc-for list="{{ shown }}" as="p" hint-placeholder-count="6">
+        <article onClick="{{ p.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:18px" style-hover="opacity:.92">
+          <div style="height:clamp(320px,30vw,420px);border-radius:22px;overflow:hidden;background:#E7E7E2;position:relative"><preform-img layout="single" items="{{ p.pf }}" bg="#E7E7E2" alt="{{ p.name }} PET preform" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#E7E7E2"></preform-img></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+            <h3 style="margin:0;font-size:21px;font-weight:500;letter-spacing:-.02em">{{ p.name }}</h3>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#3b6f75">{{ p.w }}</span>
+          </div>
+          <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-family:'JetBrains Mono',monospace;font-size:12px">
+            <dt style="color:#5E605C">Neck</dt><dd style="margin:0">{{ p.neck }}</dd>
+            <dt style="color:#5E605C">Height</dt><dd style="margin:0">{{ p.h }}</dd>
+            <dt style="color:#5E605C">Use</dt><dd style="margin:0">{{ p.app }}</dd>
+          </dl>
+        </article>
+      </sc-for>
+    </div>
+    <p style="margin:48px 0 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:#5E605C">Dimensions are indicative. Final specifications are confirmed on the quotation.</p>
+  </section>
+
+  <section aria-labelledby="custom-h" style="background:#0C0D0D;color:#EDEDE8">
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(96px,12vw,180px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <h2 id="custom-h" data-split="" style="margin:0;font-size:clamp(40px,5.4vw,84px);line-height:.98;letter-spacing:-.045em;font-weight:500">
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Need a</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#8E908C">custom preform?</span></span>
+        </h2>
+        <p data-fade="" style="margin:0;max-width:440px;font-size:17px;line-height:1.6;color:#D6D7D2">Send us your bottle drawing or a sample. We design the preform, build the mould and run trials with you before production.</p>
+        <a data-fade="" href="#/contact" onClick="{{ goContact }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 28px;border-radius:999px;background:#EDEDE8;color:#0C0D0D;font-size:15px;font-weight:500" style-hover="background:#ffffff;color:#0C0D0D">Discuss a design →</a>
+      </div>
+      <ol style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(237,237,232,.18)">
+        <sc-for list="{{ custom }}" as="c" hint-placeholder-count="4">
+          <li data-fade="" style="display:grid;grid-template-columns:52px 1fr;gap:20px;padding:28px 0;border-bottom:1px solid rgba(237,237,232,.18)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#9fd3d8;padding-top:6px">{{ c.n }}</span>
+            <div style="display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em">{{ c.t }}</h3><p style="margin:0;font-size:15px;line-height:1.55;color:#B7B9B4">{{ c.d }}</p></div>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="faq-h" style="max-width:1100px;margin:0 auto;padding:clamp(96px,12vw,180px) clamp(20px,4vw,56px)">
+    <h2 id="faq-h" style="margin:0 0 48px;font-size:clamp(36px,4.4vw,68px);line-height:1;letter-spacing:-.045em;font-weight:500">Questions buyers ask</h2>
+    <div style="border-top:1px solid rgba(18,19,18,.14)">
+      <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="6">
+        <div style="border-bottom:1px solid rgba(18,19,18,.14)">
+          <h3 style="margin:0"><button onClick="{{ q.toggle }}" aria-expanded="{{ q.open }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:28px 0;background:transparent;border:0;cursor:pointer;text-align:left;font-size:clamp(19px,1.8vw,24px);font-weight:500;letter-spacing:-.02em;color:#121312">{{ q.q }}<span aria-hidden="true" style="flex:none;font-size:24px;font-weight:400;transition:transform .4s cubic-bezier(.16,1,.3,1);transform:rotate({{ q.rot }})">+</span></button></h3>
+          <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:0 0 30px;max-width:760px;font-size:17px;line-height:1.65;color:#3E403D">{{ q.a }}</p></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</article>
+</sc-if>
+
+<!-- ============ CONTACT ============ -->
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<article data-screen-label="Contact">
+  <section aria-labelledby="contact-h1" style="max-width:1440px;margin:0 auto;padding:calc(68px + clamp(72px,10vw,140px)) clamp(20px,4vw,56px) clamp(56px,6vw,88px);display:flex;flex-direction:column;gap:40px">
+    <span data-fade="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5E605C">Contact</span>
+    <h1 id="contact-h1" data-split="" data-now="" style="margin:0;font-size:clamp(52px,8vw,132px);line-height:.93;letter-spacing:-.05em;font-weight:500">
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block">Let's talk</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="" style="display:block;color:#7A7C78">preforms.</span></span>
+    </h1>
+    <dl data-fade="" style="margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:32px;border-top:1px solid rgba(18,19,18,.14);padding-top:32px">
+      <div style="display:flex;flex-direction:column;gap:10px"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5E605C">Phone</dt><dd style="margin:0;font-size:20px;font-weight:500"><a href="tel:+910000000000">+91 [00000 00000]</a></dd></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5E605C">Email</dt><dd style="margin:0;font-size:20px;font-weight:500"><a href="mailto:sales@metcopolypet.com">sales@metcopolypet.com</a></dd></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5E605C">WhatsApp</dt><dd style="margin:0;font-size:20px;font-weight:500"><a href="#">Message us</a></dd></div>
+      <div style="display:flex;flex-direction:column;gap:10px"><dt style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5E605C">Plant</dt><dd style="margin:0;font-size:17px;line-height:1.5">[Plot no., Industrial area]<br>[City, State PIN], India<br><span style="color:#5E605C">Mon – Sat, 9:30 – 18:30 IST</span></dd></div>
+    </dl>
+    <div data-wipe="" style="height:clamp(280px,44vw,560px);border-radius:28px;overflow:hidden;clip-path:inset(0% 0% 0% 0%);background:#1A1B1B"><div style="width:100%;height:100%"><preform-img layout="trio" items="30,90,blue;28,116,clear;48,150,amber" bg="#1A1B1B" pad="1.2" alt="Three Metco Polypet PET preforms" style="display:block;position:relative;width:100%;height:100%;overflow:hidden;background:#1A1B1B"></preform-img></div></div>
+  </section>
+
+  <section aria-labelledby="form-h" style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,4vw,56px) clamp(96px,12vw,160px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(40px,5vw,80px)">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <h2 id="form-h" style="margin:0;font-size:clamp(32px,3.6vw,52px);line-height:1.02;letter-spacing:-.04em;font-weight:500">Request a quote</h2>
+      <p style="margin:0;max-width:400px;font-size:17px;line-height:1.6;color:#3E403D">Include the neck finish, gram weight and monthly volume. Our sales team replies within one working day.</p>
+      <div data-wipe="" style="margin-top:20px;height:clamp(280px,36vw,460px);border-radius:22px;overflow:hidden;clip-path:inset(0% 0% 0% 0%);background:#E7E7E2"><iframe title="Metco Polypet plant location" src="https://maps.google.com/maps?q=India&amp;z=5&amp;output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" style="width:100%;height:100%;border:0;display:block;filter:grayscale(1) contrast(1.05)"></iframe></div>
+    </div>
+    <div>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="min-height:100%;border-radius:28px;background:#0C0D0D;color:#EDEDE8;padding:clamp(36px,5vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9fd3d8">Enquiry received</span>
+          <div style="display:flex;flex-direction:column;gap:18px"><p style="margin:0;font-size:clamp(32px,3.6vw,52px);line-height:1.02;letter-spacing:-.04em;font-weight:500">Thank you. We'll reply within one working day.</p><p style="margin:0;font-size:16px;color:#B7B9B4">A copy has been sent to your email.</p></div>
+          <button onClick="{{ resetForm }}" style="align-self:flex-start;height:48px;padding:0 24px;border-radius:999px;border:1px solid rgba(237,237,232,.3);background:transparent;color:#EDEDE8;font-size:14px;font-weight:500;cursor:pointer">Send another enquiry</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submit }}" noValidate="{{ true }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px 24px">
+          <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5E605C">{{ f.label }}</span>
+              <input name="{{ f.name }}" type="{{ f.type }}" autoComplete="{{ f.ac }}" placeholder="{{ f.ph }}" style="height:52px;border:0;border-bottom:1px solid {{ f.line }};background:transparent;font-size:18px;color:#121312;outline:none;padding:0;border-radius:0" style-focus="border-bottom-color:#121312">
+              <span style="font-size:13px;color:#a23a2a;min-height:16px">{{ f.err }}</span>
+            </label>
+          </sc-for>
+          <label style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5E605C">Preform / neck finish</span>
+            <select name="product" defaultValue="{{ prefill }}" style="height:52px;border:0;border-bottom:1px solid rgba(18,19,18,.25);background:transparent;font-size:18px;color:#121312;outline:none;border-radius:0">
+              <option value="">Select</option>
+              <sc-for list="{{ productOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
+              <option value="Custom">Custom design</option>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5E605C">Monthly quantity</span>
+            <input name="qty" placeholder="e.g. 5,00,000 pcs" style="height:52px;border:0;border-bottom:1px solid rgba(18,19,18,.25);background:transparent;font-size:18px;color:#121312;outline:none;padding:0;border-radius:0" style-focus="border-bottom-color:#121312">
+          </label>
+          <label style="grid-column:1/-1;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5E605C">Message</span>
+            <textarea name="message" rows="4" placeholder="Bottle volume, colour, delivery location, timelines" style="border:0;border-bottom:1px solid rgba(18,19,18,.25);background:transparent;font-size:18px;line-height:1.5;color:#121312;outline:none;padding:12px 0;resize:vertical;border-radius:0" style-focus="border-bottom-color:#121312"></textarea>
+          </label>
+          <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;margin-top:8px">
+            <span style="font-size:13px;color:#5E605C;max-width:340px">Attach drawings by replying to our confirmation email.</span>
+            <button type="submit" style="height:56px;padding:0 32px;border-radius:999px;border:0;background:#121312;color:#F4F4F1;font-size:15px;font-weight:500;cursor:pointer;transition:background .25s" style-hover="background:#2c2e2c">Send enquiry →</button>
+          </div>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+
+  <section aria-label="Departments" style="border-top:1px solid rgba(18,19,18,.14)">
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(64px,8vw,112px) clamp(20px,4vw,56px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:40px">
+      <sc-for list="{{ depts }}" as="d" hint-placeholder-count="3">
+        <div data-fade="" style="display:flex;flex-direction:column;gap:12px">
+          <h3 style="margin:0;font-size:24px;font-weight:500;letter-spacing:-.02em">{{ d.t }}</h3>
+          <p style="margin:0;font-size:15px;line-height:1.55;color:#4C4E4A">{{ d.d }}</p>
+          <a href="mailto:{{ d.e }}" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#3b6f75">{{ d.e }}</a>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</article>
+</sc-if>
+
+</main>
+
+<footer style="background:#0C0D0D;color:#EDEDE8;overflow:hidden">
+  <div style="max-width:1440px;margin:0 auto;padding:clamp(72px,9vw,120px) clamp(20px,4vw,56px) 32px;display:flex;flex-direction:column;gap:clamp(64px,8vw,120px)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px">
+      <div style="grid-column:span 2;display:flex;flex-direction:column;gap:16px;max-width:420px">
+        <span style="font-size:22px;font-weight:500;letter-spacing:-.02em">PET preforms for India's bottlers.</span>
+        <a href="#/contact" onClick="{{ goContact }}" style="color:#9fd3d8;font-size:15px;font-weight:500" style-hover="color:#EDEDE8">Request a quote →</a>
+      </div>
+      <nav aria-label="Footer" style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9A9C98;margin-bottom:6px">Site</span>
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4"><a href="{{ n.href }}" onClick="{{ n.go }}" style="color:#EDEDE8;font-size:15px" style-hover="color:#9fd3d8">{{ n.label }}</a></sc-for>
+      </nav>
+      <address style="font-style:normal;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.5">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9A9C98;margin-bottom:6px">Contact</span>
+        <a href="mailto:sales@metcopolypet.com" style="color:#EDEDE8">sales@metcopolypet.com</a>
+        <a href="tel:+910000000000" style="color:#EDEDE8">+91 [00000 00000]</a>
+        <span style="color:#B7B9B4">[City, State], India</span>
+      </address>
+    </div>
+    <svg viewBox="0 0 1000 150" aria-hidden="true" style="display:block;width:100%;height:auto;overflow:visible"><text x="500" y="118" text-anchor="middle" textLength="1000" lengthAdjust="spacingAndGlyphs" style="font-family:'Instrument Sans',system-ui,sans-serif;font-size:168px;font-weight:500;letter-spacing:-.06em;fill:#EDEDE8">Metco Polypet</text></svg>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#9A9C98;border-top:1px solid rgba(237,237,232,.14);padding-top:24px">
+      <span>© 2026 Metco Polypet [Pvt. Ltd.] · GSTIN [00XXXXX0000X0X0]</span>
+      <span>LinkedIn · IndiaMART</span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeSel }}" role="dialog" aria-modal="true" aria-label="{{ sel.name }}" style="position:fixed;inset:0;z-index:70;background:rgba(12,13,13,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;padding:clamp(0px,3vw,40px)">
+    <div onClick="{{ stop }}" data-lenis-prevent="" style="width:100%;max-width:1200px;max-height:92vh;overflow:auto;background:#F4F4F1;border-radius:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+      <div style="min-height:clamp(320px,60vh,640px);background:#E7E7E2;position:relative"><preform-img layout="macro" items="{{ sel.pf }}" bg="#E7E7E2" alt="{{ sel.name }} neck finish" style="display:block;overflow:hidden;background:#E7E7E2;position:absolute;inset:0"></preform-img></div>
+      <div style="padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5E605C">{{ sel.app }}</span>
+          <button onClick="{{ closeSel }}" aria-label="Close" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(18,19,18,.2);background:transparent;font-size:18px;cursor:pointer;color:#121312">×</button>
+        </div>
+        <h2 style="margin:0;font-size:clamp(36px,4vw,60px);line-height:1;letter-spacing:-.045em;font-weight:500">{{ sel.name }}</h2>
+        <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:13px">
+          <tbody>
+            <sc-for list="{{ selSpecs }}" as="r" hint-placeholder-count="7">
+              <tr style="border-bottom:1px solid rgba(18,19,18,.12)"><th scope="row" style="text-align:left;font-weight:400;color:#5E605C;padding:14px 0;width:46%">{{ r.k }}</th><td style="padding:14px 0">{{ r.v }}</td></tr>
+            </sc-for>
+          </tbody>
+        </table>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:auto">
+          <button onClick="{{ quoteSel }}" style="height:54px;padding:0 28px;border-radius:999px;border:0;background:#121312;color:#F4F4F1;font-size:15px;font-weight:500;cursor:pointer" style-hover="background:#2c2e2c">Request quote for this preform →</button>
+          <a href="#" style="font-size:15px;font-weight:500;border-bottom:1px solid currentColor;padding-bottom:2px">Spec sheet (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PAGES = ['home','about','products','contact'];
+const LABELS = { home:'Home', about:'About', products:'Products', contact:'Contact' };
+const PRODUCTS = [
+  { slug:'pco1881-9-5', name:'28 mm PCO 1881 · 9.5 g', neck:'28 mm PCO 1881', w:'9.5 g', h:'72 mm', app:'Water', colours:'Clear, light blue', vol:'200 – 300 ml' },
+  { slug:'pco1881-12-5', name:'28 mm PCO 1881 · 12.5 g', neck:'28 mm PCO 1881', w:'12.5 g', h:'84 mm', app:'Water', colours:'Clear, light blue', vol:'500 ml' },
+  { slug:'pco1881-18', name:'28 mm PCO 1881 · 18 g', neck:'28 mm PCO 1881', w:'18 g', h:'98 mm', app:'Water', colours:'Clear, light blue', vol:'1 L' },
+  { slug:'pco1881-25', name:'28 mm PCO 1881 · 25 g', neck:'28 mm PCO 1881', w:'25 g', h:'110 mm', app:'CSD', colours:'Clear, green', vol:'600 ml – 1 L' },
+  { slug:'pco1810-28', name:'28 mm PCO 1810 · 28 g', neck:'28 mm PCO 1810', w:'28 g', h:'116 mm', app:'CSD', colours:'Clear, green', vol:'1 – 1.25 L' },
+  { slug:'pco1810-42', name:'28 mm PCO 1810 · 42 g', neck:'28 mm PCO 1810', w:'42 g', h:'138 mm', app:'CSD', colours:'Clear, green', vol:'2 – 2.25 L' },
+  { slug:'n3025-19', name:'30/25 · 19 g', neck:'30/25 short neck', w:'19 g', h:'90 mm', app:'Water', colours:'Clear, light blue', vol:'1 – 2 L' },
+  { slug:'n38-30', name:'38 mm 3-start · 30 g', neck:'38 mm 3-start', w:'30 g', h:'96 mm', app:'Juice & dairy', colours:'Clear, white opaque', vol:'500 ml – 1 L' },
+  { slug:'n46-42', name:'46 mm · 42 g', neck:'46 mm', w:'42 g', h:'112 mm', app:'Edible oil', colours:'Clear, amber tint', vol:'1 L' },
+  { slug:'n48-85', name:'48 mm · 85 g', neck:'48 mm', w:'85 g', h:'150 mm', app:'Edible oil', colours:'Clear', vol:'5 L' },
+  { slug:'n63-48', name:'63 mm wide-mouth · 48 g', neck:'63 mm', w:'48 g', h:'78 mm', app:'Jars', colours:'Clear', vol:'500 g – 1 kg jars' },
+  { slug:'n20-8', name:'20/410 · 8 g', neck:'20 mm 20/410', w:'8 g', h:'64 mm', app:'Pharma', colours:'Clear, amber, white', vol:'60 – 100 ml' },
+  { slug:'n24-14', name:'24/410 · 14 g', neck:'24 mm 24/410', w:'14 g', h:'82 mm', app:'Personal care', colours:'Clear, white, custom', vol:'200 – 300 ml' }
+];
+const TINTS = { 'pco1881-9-5':'clear','pco1881-12-5':'blue','pco1881-18':'blue','pco1881-25':'clear','pco1810-28':'green','pco1810-42':'clear','n3025-19':'blue','n38-30':'white','n46-42':'amber','n48-85':'clear','n63-48':'clear','n20-8':'amber','n24-14':'white' };
+PRODUCTS.forEach(p => { p.pf = parseInt(p.neck) + ',' + parseInt(p.h) + ',' + TINTS[p.slug]; });
+const LINEUP = PRODUCTS.slice().sort((a,b) => parseInt(a.h) - parseInt(b.h)).map(p => p.pf).join(';');
+const APPS = ['All','Water','CSD','Juice & dairy','Edible oil','Pharma','Personal care','Jars'];
+const FAQS = [
+  { q:'What PET preform sizes does Metco Polypet manufacture?', a:'We manufacture PET preforms with neck finishes from 20 mm to 63 mm, including 28 mm PCO 1881 and 1810, 30/25, 38 mm, 46 mm, 48 mm and wide-mouth jar finishes, in weights from 6 g to 85 g.' },
+  { q:'What is the minimum order quantity?', a:'Minimum order quantities depend on the preform and colour. Standard clear preforms typically start at [MOQ] pieces. Share your requirement and we will confirm.' },
+  { q:'Can you develop a custom preform for my bottle?', a:'Yes. Send a bottle drawing or sample and we will design the preform, build the mould and run sampling trials before production.' },
+  { q:'Which industries do you supply?', a:'Packaged drinking water, carbonated soft drinks, juices and dairy, edible oil, pharmaceuticals, and personal and home care.' },
+  { q:'Do you offer coloured preforms?', a:'Yes. We mould clear, light blue, green, amber and white opaque preforms, and can match custom colours using masterbatch.' },
+  { q:'Do you deliver outside [State]?', a:'We deliver across India [and export to — confirm]. Preforms are packed in corrugated cartons or octabins with food-grade liners.' }
+];
+class Component extends DCLogic {
+  state = { page:'home', w:1440, menu:false, filter:'All', sel:null, faq:0, errors:{}, sent:false, prefill:'', transLabel:'', hidden:false, scrolled:false };
+  rootRef = React.createRef(); panelRef = React.createRef(); headRef = React.createRef();
+  componentDidMount(){
+    const h = (location.hash||'').replace('#/','');
+    if (PAGES.includes(h)) this.setState({ page:h });
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    this.onResize(); addEventListener('resize', this.onResize);
+    this.lastY = 0;
+    this.onScroll = () => {
+      const y = window.scrollY, hidden = y > this.lastY && y > 160 && !this.state.menu, scrolled = y > 20;
+      if (hidden !== this.state.hidden || scrolled !== this.state.scrolled) this.setState({ hidden, scrolled });
+      this.lastY = y;
+    };
+    addEventListener('scroll', this.onScroll, { passive:true });
+    this.boot();
+  }
+  componentWillUnmount(){
+    removeEventListener('resize', this.onResize); removeEventListener('scroll', this.onScroll);
+    clearTimeout(this.t); this.ctx && this.ctx.revert(); this.lenis && this.lenis.destroy();
+    this.tick && window.gsap && window.gsap.ticker.remove(this.tick);
+  }
+  boot(){
+    const g = window.gsap, ST = window.ScrollTrigger;
+    if (!g || !ST) { this.t = setTimeout(() => this.boot(), 80); return; }
+    g.registerPlugin(ST);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const startLenis = (n) => {
+      if (reduce) return;
+      if (!window.Lenis) { if (n < 40) setTimeout(() => startLenis(n+1), 100); return; }
+      this.lenis = new window.Lenis({ lerp: 0.085, smoothWheel: true });
+      this.lenis.on('scroll', ST.update);
+      this.tick = (t) => this.lenis.raf(t * 1000);
+      g.ticker.add(this.tick); g.ticker.lagSmoothing(0);
+    };
+    startLenis(0);
+    this.init();
+  }
+  init(){
+    const g = window.gsap, ST = window.ScrollTrigger, root = this.rootRef.current;
+    if (!g || !ST || !root) return;
+    this.ctx && this.ctx.revert();
+    this.offMove && this.offMove(); this.offMove = null;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ease = 'expo.out';
+    this.ctx = g.context(() => {
+      root.querySelectorAll('[data-split]').forEach(grp => {
+        const lines = grp.querySelectorAll('[data-line]'), now = grp.hasAttribute('data-now');
+        g.from(lines, { yPercent:115, duration:1.3, ease, stagger:0.09, delay: now ? 0.2 : 0, scrollTrigger: now ? undefined : { trigger:grp, start:'top 88%' } });
+      });
+      root.querySelectorAll('[data-fade]').forEach(el => {
+        const r = el.getBoundingClientRect(), now = r.top < innerHeight;
+        g.from(el, { y:32, opacity:0, duration:1.2, ease, delay: now ? 0.55 : 0, scrollTrigger: now ? undefined : { trigger:el, start:'top 92%' } });
+      });
+      root.querySelectorAll('[data-hero-obj]').forEach(el => {
+        g.from(el, { opacity:0, scale:0.92, y:60, duration:2, ease, delay:0.3 });
+        const img = el.querySelector('[data-hero-img]'), sh = el.querySelector('[data-hero-shadow]');
+        if (!img) return;
+        g.to(img.parentElement, { y:-14, duration:3.2, ease:'sine.inOut', yoyo:true, repeat:-1 });
+        sh && g.to(sh, { scaleX:0.88, opacity:0.7, duration:3.2, ease:'sine.inOut', yoyo:true, repeat:-1 });
+        g.to(el, { yPercent:18, scale:0.86, rotation:-8, ease:'none', scrollTrigger:{ trigger:el.closest('section'), start:'top top', end:'bottom top', scrub:true } });
+        const hi = img.querySelector('[data-spin-hi]'), lo = img.querySelector('[data-spin-lo]');
+        const st = { ph:0, v:0.11, drag:false, lx:0, ly:0, tx:0, ty:0, rx:0, ry:0 };
+        const tick = (t, dt) => {
+          const d = Math.min(dt, 50) / 1000;
+          if (!st.drag) { st.v += (0.11 - st.v) * Math.min(1, d * 1.6); st.ph += st.v * d; st.tx *= 0.92; st.ty *= 0.92; }
+          const f = ((st.ph % 1) + 1) % 1, wob = Math.sin(f * Math.PI * 2);
+          st.ry += ((wob * 10 + st.tx) - st.ry) * 0.12; st.rx += (st.ty - st.rx) * 0.12;
+          g.set(img, { rotationY: st.ry, rotationX: st.rx, rotationZ: -st.ry * 0.08, transformPerspective: 1400 });
+          const pos = (1 - f) * 100 + '% 0%', pos2 = (1 - ((f + 0.42) % 1)) * 100 + '% 0%';
+          hi.style.backgroundPosition = pos; lo.style.backgroundPosition = pos2;
+          hi.style.opacity = 0.55 + 0.45 * Math.abs(Math.cos(f * Math.PI));
+        };
+        g.ticker.add(tick);
+        const down = (e) => { st.drag = true; st.lx = e.clientX; st.ly = e.clientY; img.style.cursor = 'grabbing'; img.setPointerCapture && img.setPointerCapture(e.pointerId); };
+        const move = (e) => { if (!st.drag) return; const dx = e.clientX - st.lx, dy = e.clientY - st.ly; st.lx = e.clientX; st.ly = e.clientY;
+          st.ph += dx / 520; st.v = dx / 520 * 60; st.tx = Math.max(-28, Math.min(28, st.tx + dx * 0.25)); st.ty = Math.max(-16, Math.min(16, st.ty - dy * 0.2)); };
+        const up = () => { if (!st.drag) return; st.drag = false; img.style.cursor = 'grab'; st.v = Math.max(-1.5, Math.min(1.5, st.v)); };
+        img.addEventListener('pointerdown', down); addEventListener('pointermove', move); addEventListener('pointerup', up); addEventListener('pointercancel', up);
+        this.offMove && this.offMove();
+        this.offMove = () => { g.ticker.remove(tick); img.removeEventListener('pointerdown', down); removeEventListener('pointermove', move); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); };
+      });
+      root.querySelectorAll('[data-wipe]').forEach(el => {
+        const st = { trigger:el, start:'top 88%' };
+        g.from(el, { clipPath:'inset(100% 0% 0% 0%)', duration:1.5, ease, scrollTrigger:st });
+        el.firstElementChild && g.from(el.firstElementChild, { scale:1.2, duration:2, ease, scrollTrigger:st });
+      });
+      root.querySelectorAll('[data-parallax]').forEach(el => g.fromTo(el, { yPercent:-8 }, { yPercent:8, ease:'none', scrollTrigger:{ trigger:el.parentElement, start:'top bottom', end:'bottom top', scrub:true } }));
+      root.querySelectorAll('[data-story]').forEach(sec => {
+        const t = [...sec.querySelectorAll('[data-story-item]')], im = [...sec.querySelectorAll('[data-story-img]')], bar = sec.querySelector('[data-story-bar]');
+        g.set(t.slice(1), { opacity:0, y:60 }); g.set(im.slice(1), { opacity:0, scale:1.08 });
+        const tl = g.timeline({ scrollTrigger:{ trigger:sec, start:'top top', end:'bottom bottom', scrub:0.7 } });
+        for (let i = 1; i < t.length; i++) {
+          tl.to(t[i-1], { opacity:0, y:-60, duration:0.5, ease:'power2.in' }, i)
+            .to(im[i-1], { opacity:0, duration:0.6 }, i)
+            .to(t[i], { opacity:1, y:0, duration:0.5, ease:'power2.out' }, i + 0.35)
+            .to(im[i], { opacity:1, scale:1, duration:0.7 }, i + 0.2);
+        }
+        tl.to({}, { duration:0.8 });
+        bar && g.fromTo(bar, { scaleY:0 }, { scaleY:1, ease:'none', scrollTrigger:{ trigger:sec, start:'top top', end:'bottom bottom', scrub:true } });
+      });
+      root.querySelectorAll('[data-rail]').forEach(sec => {
+        const tr = sec.querySelector('[data-rail-track]');
+        g.to(tr, { x: () => -Math.max(0, tr.scrollWidth - sec.clientWidth), ease:'none', scrollTrigger:{ trigger:sec, start:'top top', end:'bottom bottom', scrub:0.8, invalidateOnRefresh:true } });
+      });
+    }, root);
+    ST.refresh();
+  }
+  go(p, extra){
+    const g = window.gsap, panel = this.panelRef.current;
+    if (p === this.state.page && !extra) { this.setState({ menu:false }); this.lenis ? this.lenis.scrollTo(0) : scrollTo({ top:0, behavior:'smooth' }); return; }
+    const swap = () => {
+      this.setState({ page:p, sel:null, menu:false, sent:false, errors:{}, ...(extra||{}) }, () => {
+        try { history.replaceState(null, '', '#/' + p); } catch(e) {}
+        this.lenis ? this.lenis.scrollTo(0, { immediate:true }) : scrollTo(0,0);
+        setTimeout(() => this.init(), 40);
+        if (g && panel) g.to(panel, { yPercent:-200, duration:0.85, ease:'expo.inOut', delay:0.12, onComplete:() => g.set(panel, { yPercent:0 }) });
+      });
+    };
+    if (!g || !panel) return swap();
+    this.setState({ transLabel: LABELS[p] });
+    g.fromTo(panel, { yPercent:0 }, { yPercent:-100, duration:0.65, ease:'expo.inOut', onComplete:swap });
+  }
+  link(p){ return (e) => { e && e.preventDefault(); this.go(p); }; }
+  submit = (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target), v = k => (f.get(k) || '').toString().trim(), er = {};
+    if (!v('name')) er.name = 'Please enter your name';
+    if (!v('company')) er.company = 'Company name is required';
+    if (!/^\S+@\S+\.\S+$/.test(v('email'))) er.email = 'Enter a valid work email';
+    if (v('phone').replace(/\D/g,'').length < 8) er.phone = 'Enter a valid phone number';
+    this.setState({ errors:er, sent: Object.keys(er).length === 0 });
+  };
+  renderVals(){
+    const s = this.state, page = s.page, wide = s.w >= 860;
+    const nav = PAGES.map(p => ({ label: p === 'home' ? 'Home' : p === 'about' ? 'About Us' : p === 'products' ? 'Products' : 'Contact Us', href:'#/' + p, go:this.link(p), color: p === page ? '#121312' : '#5E605C' }));
+    const shown = PRODUCTS.filter(p => s.filter === 'All' || p.app === s.filter).map(p => ({ ...p, photo:`Studio photo: ${p.name} preform, ${p.colours.split(',')[0].toLowerCase()} PET, seamless grey`, open: () => this.setState({ sel:p }) }));
+    const sel = s.sel ? { ...s.sel, photo:`Macro photo: ${s.sel.neck} neck finish and support ring, ${s.sel.name}` } : null;
+    const err = s.errors;
+    return {
+      rootRef:this.rootRef, panelRef:this.panelRef, headRef:this.headRef,
+      wide, narrow:!wide, menuOpen: s.menu && !wide, menuLabel: s.menu ? 'Close' : 'Menu',
+      toggleMenu: () => this.setState({ menu: !s.menu }),
+      headY: s.hidden ? '-100%' : '0%', headBg: s.scrolled || s.menu ? 'rgba(244,244,241,.78)' : 'rgba(244,244,241,0)', headLine: s.scrolled ? 'rgba(18,19,18,.08)' : 'rgba(18,19,18,0)',
+      transLabel: s.transLabel, nav, lineup: LINEUP,
+      storyCols: s.w >= 760 ? 'minmax(0,1fr) minmax(0,1fr)' : 'minmax(0,1fr)',
+      storyTextH: s.w >= 760 ? 'clamp(240px,40vh,380px)' : 'clamp(180px,30vh,260px)',
+      storyImgH: s.w >= 760 ? 'clamp(260px,68vh,720px)' : 'clamp(180px,36vh,360px)',
+      goHome:this.link('home'), goAbout:this.link('about'), goProducts:this.link('products'), goContact:this.link('contact'),
+      isHome: page==='home', isAbout: page==='about', isProducts: page==='products', isContact: page==='contact',
+      story: [
+        { n:'01', layout:'macro', pf:'28,98,clear', title:'Neck finishes held to tolerance.', spec:'Thread profile, support ring and sealing surface checked every shift against the closure specification.', photo:'Macro photo: 28 mm PCO neck threads, clear PET, black background' },
+        { n:'02', layout:'trio', pf:'20,64,amber;28,116,green;48,150,clear', title:'From 6 g to 85 g.', spec:'Light water preforms through heavy edible-oil and jar preforms, on dedicated moulds.', photo:'Studio photo: three preforms of very different weights side by side' },
+        { n:'03', layout:'tilt', pf:'28,110,clear', title:'Clarity you can see through.', spec:'Virgin food-grade PET, dried before moulding to prevent haze and acetaldehyde build-up.', photo:'Backlit photo: clear preform with light refracting through the wall' },
+        { n:'04', layout:'pile', pf:'30,90,blue', title:'Consistency at volume.', spec:'Hot-runner multi-cavity moulds producing [capacity] preforms per day.', photo:'Photo: thousands of preforms in a bin or on a conveyor' }
+      ],
+      necks: [
+        { id:'1881', pf:'28,98,clear', name:'28 mm PCO 1881', range:'9.5 – 25 g', app:'Water · CSD' },
+        { id:'1810', pf:'28,116,green', name:'28 mm PCO 1810', range:'21 – 42 g', app:'Carbonated soft drinks' },
+        { id:'3025', pf:'30,90,blue', name:'29/25 · 30/25', range:'8 – 19 g', app:'Packaged drinking water' },
+        { id:'38', pf:'38,96,white', name:'38 mm 3-start', range:'22 – 42 g', app:'Juice · Dairy' },
+        { id:'46', pf:'46,112,amber', name:'46 · 48 mm', range:'38 – 85 g', app:'Edible oil' },
+        { id:'63', pf:'63,78,clear', name:'53 – 63 mm', range:'30 – 75 g', app:'Wide-mouth jars' },
+        { id:'20', pf:'20,64,amber', name:'20 · 24 mm', range:'6 – 18 g', app:'Pharma · Personal care' }
+      ].map(k => ({ ...k, photo:`Studio photo: ${k.name} preform, vertical, on black` })),
+      industries: [
+        { n:'01', pf:'30,90,blue', name:'Packaged drinking water', necks:'29/25 · 30/25 · PCO 1881' },
+        { n:'02', pf:'28,116,green', name:'Carbonated soft drinks', necks:'PCO 1810 · PCO 1881' },
+        { n:'03', pf:'38,96,white', name:'Juices & dairy', necks:'38 mm 3-start' },
+        { n:'04', pf:'48,150,amber', name:'Edible oil', necks:'46 mm · 48 mm' },
+        { n:'05', pf:'20,64,amber', name:'Pharmaceuticals', necks:'20/410 · 24/410' },
+        { n:'06', pf:'24,82,white', name:'Personal & home care', necks:'24/410 · 28/410' }
+      ].map(i => ({ ...i, photo: i.name + ' bottle' })),
+      process: [
+        { n:'01', pf:'30,90,blue', name:'Resin drying', text:'PET chips are dried to low moisture before they reach the barrel.' },
+        { n:'02', pf:'28,116,green', name:'Injection moulding', text:'Hot-runner moulds form each preform to the set weight and wall.' },
+        { n:'03', pf:'38,96,white', name:'Controlled cooling', text:'Post-mould cooling keeps preforms clear and dimensionally stable.' },
+        { n:'04', pf:'48,150,amber', name:'Inspection', text:'Weight, neck dimensions and visual defects are checked in the QC lab.' },
+        { n:'05', pf:'20,64,amber', name:'Packing', text:'Packed in lined cartons or octabins, labelled by batch and shift.' }
+      ],
+      logos: ['a','b','c','d','e'],
+      figures: [ { v:'[00]', k:'Years in operation' }, { v:'[00]', k:'Injection moulding machines' }, { v:'[00] M', k:'Preforms per month' }, { v:'[000]+', k:'Active clients' } ],
+      milestones: [
+        { y:'[Year]', t:'Company founded', d:'[First plant set up in City with two machines, supplying local water bottlers.]' },
+        { y:'[Year]', t:'CSD and juice finishes added', d:'[PCO 1810 and 38 mm moulds commissioned for soft-drink and juice customers.]' },
+        { y:'[Year]', t:'Plant expansion', d:'[New production hall, automated resin handling and in-house QC laboratory.]' },
+        { y:'[Year]', t:'Today', d:'[Supplying bottlers across India with preforms from 20 mm to 63 mm.]' }
+      ],
+      infra: [
+        { id:'machines', layout:'pile', count:'30', pad:'1.0', pf:'28,98,clear;30,90,blue;28,110,clear', t:'Injection moulding', d:'[Number] machines with hot-runner multi-cavity moulds.', photo:'Photo: injection moulding machine, operator at panel' },
+        { id:'moulds', layout:'lineup', pad:'1.2', pf:'28,98,clear;28,98,clear;28,98,clear;28,98,clear', t:'Mould shop', d:'In-house mould maintenance and changeovers.', photo:'Photo: preform mould cavities, close-up' },
+        { id:'lab', layout:'macro', pf:'38,96,white', t:'QC laboratory', d:'Weight, dimensions, IV and visual inspection.', photo:'Photo: technician measuring preform neck with gauge' },
+        { id:'store', layout:'trio', pad:'1.25', pf:'46,112,amber;28,116,green;63,78,clear', t:'Warehousing', d:'Covered storage and batch-labelled dispatch.', photo:'Photo: cartons of preforms stacked in warehouse' }
+      ],
+      certs: [ { n:'ISO 9001:2015', d:'[Confirm]' }, { n:'FSSC 22000 / ISO 22000', d:'[Confirm]' }, { n:'Food-grade PET resin', d:'Supplier COA per lot' }, { n:'Batch traceability', d:'Resin lot · machine · shift' } ],
+      team: [ { id:'1', pf:'28,110,clear', n:'[Name]', r:'Managing Director' }, { id:'2', pf:'30,90,blue', n:'[Name]', r:'Director, Operations' }, { id:'3', pf:'28,116,green', n:'[Name]', r:'Head of Sales' } ],
+      chips: APPS.map(a => { const on = a === s.filter; return { label:a, on, pick:() => this.setState({ filter:a }), bg: on ? '#121312' : 'transparent', fg: on ? '#F4F4F1' : '#121312', line: on ? '#121312' : 'rgba(18,19,18,.2)' }; }),
+      shown, countLabel: `${shown.length} preform${shown.length === 1 ? '' : 's'}`,
+      hasSel: !!sel, sel: sel || {},
+      selSpecs: sel ? [ { k:'Neck finish', v:sel.neck }, { k:'Weight', v:sel.w }, { k:'Preform height', v:sel.h }, { k:'Bottle volume', v:sel.vol }, { k:'Application', v:sel.app }, { k:'Colours', v:sel.colours }, { k:'Material', v:'Food-grade PET' }, { k:'Packing', v:'Lined carton / octabin' } ] : [],
+      closeSel: () => this.setState({ sel:null }), stop: (e) => e.stopPropagation(),
+      quoteSel: () => this.go('contact', { prefill: s.sel ? s.sel.name : '' }),
+      custom: [
+        { n:'01', t:'Brief', d:'Bottle drawing or sample, target weight, closure and volume.' },
+        { n:'02', t:'Preform design', d:'Wall thickness and length designed for your blow-moulding setup.' },
+        { n:'03', t:'Mould and sampling', d:'Mould built and trial preforms sent for your blowing tests.' },
+        { n:'04', t:'Production', d:'Approved samples become the reference for every batch.' }
+      ],
+      faqs: FAQS.map((q,i) => ({ ...q, open: s.faq === i, rot: s.faq === i ? '45deg' : '0deg', toggle: () => this.setState({ faq: s.faq === i ? -1 : i }) })),
+      sent: s.sent, notSent: !s.sent, submit:this.submit, resetForm: () => this.setState({ sent:false, errors:{} }),
+      prefill: s.prefill || '', productOptions: PRODUCTS.map(p => p.name),
+      fields: [
+        { name:'name', label:'Name', type:'text', ac:'name', ph:'Your full name' },
+        { name:'company', label:'Company', type:'text', ac:'organization', ph:'Company name' },
+        { name:'email', label:'Work email', type:'email', ac:'email', ph:'you@company.com' },
+        { name:'phone', label:'Phone', type:'tel', ac:'tel', ph:'+91' }
+      ].map(f => ({ ...f, err: err[f.name] || '', line: err[f.name] ? '#a23a2a' : 'rgba(18,19,18,.25)' })),
+      depts: [
+        { t:'Sales', d:'Quotes, samples and order status for customers in India.', e:'sales@metcopolypet.com' },
+        { t:'Exports', d:'Enquiries from outside India.', e:'exports@metcopolypet.com' },
+        { t:'Careers', d:'Production, quality and sales roles.', e:'careers@metcopolypet.com' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

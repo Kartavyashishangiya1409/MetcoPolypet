@@ -125,7 +125,12 @@ function Form({ onReset }: { onReset: () => void }) {
 
       <label className={s.field}>
         <span className={s.label}>Monthly quantity</span>
-        <input name="qty" placeholder="e.g. 5,00,000 pcs" defaultValue={v.qty} className={s.input} />
+        <input
+          name="qty"
+          placeholder="e.g. 5,00,000 pcs"
+          defaultValue={v.qty}
+          className={s.input}
+        />
       </label>
 
       <label className={`${s.field} ${s.full}`}>

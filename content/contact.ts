@@ -1,7 +1,11 @@
 import { site } from './site';
 
 export const departments = [
-  { t: 'Sales', d: 'Quotes, samples and order status for customers in India.', e: site.email.sales },
+  {
+    t: 'Sales',
+    d: 'Quotes, samples and order status for customers in India.',
+    e: site.email.sales,
+  },
   { t: 'Exports', d: 'Enquiries from outside India.', e: site.email.exports },
   { t: 'Careers', d: 'Production, quality and sales roles.', e: site.email.careers },
 ];

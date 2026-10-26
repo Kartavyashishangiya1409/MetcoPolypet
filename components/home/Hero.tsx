@@ -33,7 +33,13 @@ export function Hero() {
             id="home-h1"
             now
             className={s.h1}
-            lines={['Precision', 'in every', <span key="p" className={t.accent}>preform.</span>]}
+            lines={[
+              'Precision',
+              'in every',
+              <span key="p" className={t.accent}>
+                preform.
+              </span>,
+            ]}
           />
           <p {...fade(true)} className={s.lede}>
             Injection-moulded PET preforms for water, soft drinks, juice, edible oil, pharma and

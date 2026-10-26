@@ -75,7 +75,11 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     let envRT: T.WebGLRenderTarget | null = null;
     let model: T.Object3D | null = null;
 
-    const r = new T.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+    const r = new T.WebGLRenderer({
+      antialias: true,
+      alpha: false,
+      powerPreference: 'high-performance',
+    });
     r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     r.toneMapping = T.ACESFilmicToneMapping;
     r.toneMappingExposure = 0.9;
@@ -99,7 +103,11 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     g.fillRect(0, 0, 256, 256);
     const shadow = new T.Mesh(
       new T.PlaneGeometry(5.2, 1.6),
-      new T.MeshBasicMaterial({ map: new T.CanvasTexture(c), transparent: true, depthWrite: false }),
+      new T.MeshBasicMaterial({
+        map: new T.CanvasTexture(c),
+        transparent: true,
+        depthWrite: false,
+      }),
     );
     shadow.rotation.x = -Math.PI / 2;
     shadow.position.y = -5.6;
@@ -203,7 +211,16 @@ export default function HeroPreform({ src, bg = '#F4F4F1', onLoad }: Props) {
     fit();
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const st = { ry: 0.4, vy: reduce ? 0 : 0.4, auto: reduce ? 0 : 0.4, drag: false, lx: 0, ly: 0, tx: 0, rx: 0 };
+    const st = {
+      ry: 0.4,
+      vy: reduce ? 0 : 0.4,
+      auto: reduce ? 0 : 0.4,
+      drag: false,
+      lx: 0,
+      ly: 0,
+      tx: 0,
+      rx: 0,
+    };
     const cv = r.domElement;
     const down = (e: PointerEvent) => {
       st.drag = true;

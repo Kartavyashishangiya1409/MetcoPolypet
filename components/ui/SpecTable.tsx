@@ -1,7 +1,13 @@
 import s from './SpecTable.module.scss';
 
 /** Plain HTML spec table (mono), row headers scoped for screen readers. */
-export function SpecTable({ rows, caption }: { rows: { k: string; v: string }[]; caption?: string }) {
+export function SpecTable({
+  rows,
+  caption,
+}: {
+  rows: { k: string; v: string }[];
+  caption?: string;
+}) {
   return (
     <table className={s.table}>
       {caption && <caption className="visually-hidden">{caption}</caption>}

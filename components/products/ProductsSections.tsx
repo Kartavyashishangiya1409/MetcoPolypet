@@ -21,7 +21,12 @@ export function ProductsHero() {
           id="prod-h1"
           now
           className={s.h1}
-          lines={['PET preforms,', <span key="e" className={t.darkGrey}>every size.</span>]}
+          lines={[
+            'PET preforms,',
+            <span key="e" className={t.darkGrey}>
+              every size.
+            </span>,
+          ]}
         />
         <p {...fade(true)} className={s.lede}>
           Standard preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g, in clear, tinted and
@@ -49,7 +54,12 @@ export function CustomPreform() {
           <SplitLines
             id="custom-h"
             className={s.h2}
-            lines={['Need a', <span key="c" className={t.darkGrey}>custom preform?</span>]}
+            lines={[
+              'Need a',
+              <span key="c" className={t.darkGrey}>
+                custom preform?
+              </span>,
+            ]}
           />
           <p {...fade()} className={s.customText}>
             Send us your bottle drawing or a sample. We design the preform, build the mould and run

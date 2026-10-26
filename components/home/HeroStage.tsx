@@ -46,7 +46,11 @@ export function HeroStage({ children, label }: { children: ReactNode; label: str
     <div className={`${s.stage} ${ready ? s.ready : ''}`} role="img" aria-label={label}>
       {children}
       {mount && (
-        <HeroPreform src="/models/metco-pet-preform.glb" bg="#F4F4F1" onLoad={() => setReady(true)} />
+        <HeroPreform
+          src="/models/metco-pet-preform.glb"
+          bg="#F4F4F1"
+          onLoad={() => setReady(true)}
+        />
       )}
     </div>
   );

@@ -72,7 +72,10 @@ const entries: [string, PreformImageSpec][] = [
     return [id, S('macro', s.pf, BG.light, w, h, { mobile: { w: 335, h: 292, maxWidth: 759 } })];
   }),
   // Home — range rail
-  ...necks.map((k): [string, PreformImageSpec] => [`rail-${k.id}`, S('single', k.pf, BG.dark, 380, 420)]),
+  ...necks.map((k): [string, PreformImageSpec] => [
+    `rail-${k.id}`,
+    S('single', k.pf, BG.dark, 380, 420),
+  ]),
   // Home — industries thumbs
   ...industries.map((i): [string, PreformImageSpec] => [
     `industry-${i.id}`,
@@ -93,11 +96,16 @@ const entries: [string, PreformImageSpec][] = [
   ['about-lineup', S('lineup', lineup, BG.light, 1328, 630, { pad: '1.15' })],
   [
     'infra-machines',
-    S('pile', '28,98,clear;30,90,blue;28,110,clear', BG.light, 400, 440, { count: '30', pad: '1.0' }),
+    S('pile', '28,98,clear;30,90,blue;28,110,clear', BG.light, 400, 440, {
+      count: '30',
+      pad: '1.0',
+    }),
   ],
   [
     'infra-moulds',
-    S('lineup', '28,98,clear;28,98,clear;28,98,clear;28,98,clear', BG.light, 320, 440, { pad: '1.2' }),
+    S('lineup', '28,98,clear;28,98,clear;28,98,clear;28,98,clear', BG.light, 320, 440, {
+      pad: '1.2',
+    }),
   ],
   [
     'infra-lab',
@@ -105,19 +113,28 @@ const entries: [string, PreformImageSpec][] = [
       mobile: { w: 335, h: 280, maxWidth: 667 },
     }),
   ],
-  ['infra-store', S('trio', '46,112,amber;28,116,green;63,78,clear', BG.light, 320, 440, { pad: '1.25' })],
+  [
+    'infra-store',
+    S('trio', '46,112,amber;28,116,green;63,78,clear', BG.light, 320, 440, { pad: '1.25' }),
+  ],
   ['team-1', S('tilt', '28,110,clear', BG.light, 430, 322)],
   ['team-2', S('tilt', '30,90,blue', BG.light, 430, 322)],
   ['team-3', S('tilt', '28,116,green', BG.light, 430, 322)],
   // Products
   ['products-lineup', S('lineup', lineup, BG.dark, 1328, 504, { pad: '1.15' })],
-  ...products.map((p): [string, PreformImageSpec] => [`card-${p.id}`, S('single', p.pf, BG.light, 320, 420)]),
+  ...products.map((p): [string, PreformImageSpec] => [
+    `card-${p.id}`,
+    S('single', p.pf, BG.light, 320, 420),
+  ]),
   ...products.map((p): [string, PreformImageSpec] => [
     `macro-${p.id}`,
     S('macro', p.pf, BG.light, macro(600).w, macro(600).h),
   ]),
   // Contact
-  ['contact-trio', S('trio', '30,90,blue;28,116,clear;48,150,amber', BG.dark, 1328, 560, { pad: '1.2' })],
+  [
+    'contact-trio',
+    S('trio', '30,90,blue;28,116,clear;48,150,amber', BG.dark, 1328, 560, { pad: '1.2' }),
+  ],
 ];
 
 export const preformImages: Record<string, PreformImageSpec> = Object.fromEntries(entries);
@@ -139,8 +156,12 @@ export const imagePath = (id: string, pxWidth: number, ext: 'avif' | 'webp' | 'p
   `/images/preforms/${id}-${pxWidth}.${ext}`;
 
 /** Extra PNG master used by opengraph-image (Satori can't read AVIF/WebP) */
-export const OG_SOURCE = { id: 'og-lineup', spec: S('lineup', lineup, BG.light, 1200, 520, { pad: '1.1' }) };
+export const OG_SOURCE = {
+  id: 'og-lineup',
+  spec: S('lineup', lineup, BG.light, 1200, 520, { pad: '1.1' }),
+};
 
 /** Hero poster (LCP image) — source assets/hero-preform.png, 1122×1402 with alpha */
 export const HERO_POSTER = { width: 1122, height: 1402, widths: [420, 700, 1122] } as const;
-export const heroPosterPath = (w: number, ext: 'avif' | 'webp') => `/images/hero/hero-preform-${w}.${ext}`;
+export const heroPosterPath = (w: number, ext: 'avif' | 'webp') =>
+  `/images/hero/hero-preform-${w}.${ext}`;

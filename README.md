@@ -14,25 +14,25 @@ cp .env.example .env.local   # fill in values (see below)
 npm run dev                  # http://localhost:3000
 ```
 
-| Script | What it does |
-|---|---|
-| `npm run dev` | Dev server |
-| `npm run build` / `npm start` | Production build / serve it |
-| `npm run lint` · `npm run typecheck` · `npm run format` | ESLint · `tsc --noEmit` · Prettier |
-| `npm run render:preforms` | Regenerate the static 3D preform images |
-| `npm run compress:glb` | Re-compress the hero GLB model |
+| Script                                                  | What it does                            |
+| ------------------------------------------------------- | --------------------------------------- |
+| `npm run dev`                                           | Dev server                              |
+| `npm run build` / `npm start`                           | Production build / serve it             |
+| `npm run lint` · `npm run typecheck` · `npm run format` | ESLint · `tsc --noEmit` · Prettier      |
+| `npm run render:preforms`                               | Regenerate the static 3D preform images |
+| `npm run compress:glb`                                  | Re-compress the hero GLB model          |
 
 Requires Node 18.18+ for Next.js. The render script imports TypeScript content files directly,
 which needs Node 22.18+ or 23.6+ (developed on Node 24).
 
 ## Environment variables
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | yes (prod) | Canonical origin, e.g. `https://www.metcopolypet.com`. Used for canonical URLs, sitemap, Open Graph and JSON-LD. |
-| `RESEND_API_KEY` | yes (prod) | [Resend](https://resend.com) API key for the enquiry form. Without it, dev logs enquiries to the console; prod shows an error with the sales email/phone. |
-| `ENQUIRY_TO` | yes | Inbox(es) for enquiries, comma-separated. Defaults to the sales email in `content/site.ts`. |
-| `ENQUIRY_FROM` | yes | Verified sender on your Resend domain, e.g. `Metco Polypet <enquiries@metcopolypet.com>`. |
+| Variable               | Required   | Purpose                                                                                                                                                   |
+| ---------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | yes (prod) | Canonical origin, e.g. `https://www.metcopolypet.com`. Used for canonical URLs, sitemap, Open Graph and JSON-LD.                                          |
+| `RESEND_API_KEY`       | yes (prod) | [Resend](https://resend.com) API key for the enquiry form. Without it, dev logs enquiries to the console; prod shows an error with the sales email/phone. |
+| `ENQUIRY_TO`           | yes        | Inbox(es) for enquiries, comma-separated. Defaults to the sales email in `content/site.ts`.                                                               |
+| `ENQUIRY_FROM`         | yes        | Verified sender on your Resend domain, e.g. `Metco Polypet <enquiries@metcopolypet.com>`.                                                                 |
 
 ## Editing content
 

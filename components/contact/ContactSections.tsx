@@ -19,7 +19,12 @@ export function ContactHero() {
         id="contact-h1"
         now
         className={s.h1}
-        lines={["Let's talk", <span key="p" className={t.grey}>preforms.</span>]}
+        lines={[
+          "Let's talk",
+          <span key="p" className={t.grey}>
+            preforms.
+          </span>,
+        ]}
       />
       <address className={s.address}>
         <dl {...fade(true)} className={s.details}>

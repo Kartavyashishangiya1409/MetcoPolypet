@@ -30,7 +30,13 @@ export function Footer() {
         </div>
 
         <svg viewBox="0 0 1000 150" aria-hidden="true" className={s.wordmark}>
-          <text x="500" y="118" textAnchor="middle" textLength="1000" lengthAdjust="spacingAndGlyphs">
+          <text
+            x="500"
+            y="118"
+            textAnchor="middle"
+            textLength="1000"
+            lengthAdjust="spacingAndGlyphs"
+          >
             {site.name}
           </text>
         </svg>

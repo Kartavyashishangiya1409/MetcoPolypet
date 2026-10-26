@@ -13,11 +13,7 @@ export function Manufacturing() {
       <div className={s.shade} />
       <div className={s.bottom}>
         <div className={s.grid}>
-          <SplitLines
-            id="mfg-h"
-            className={s.h2}
-            lines={['Built on the', 'factory floor.']}
-          />
+          <SplitLines id="mfg-h" className={s.h2} lines={['Built on the', 'factory floor.']} />
           <p {...fade()} className={s.copy}>
             Hot-runner multi-cavity moulds, automated resin drying and handling, and closed packing
             lines keep preforms clean from hopper to carton.
