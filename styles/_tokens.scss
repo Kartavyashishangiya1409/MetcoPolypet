@@ -1,0 +1,54 @@
+// Design tokens — values taken verbatim from the inline styles of the approved design.
+@use 'sass:map';
+
+// Colour
+$bg: #f4f4f1;
+$ink: #121312;
+$ink-hover: #2c2e2c;
+$accent: #3b6f75;
+$accent-light: #9fd3d8;
+$muted: #5e605c;
+$text-2: #3e403d;
+$text-3: #4c4e4a;
+$grey: #7a7c78;
+$surface: #e7e7e2;
+$error: #a23a2a;
+$line: rgba(18, 19, 18, 0.14);
+$line-soft: rgba(18, 19, 18, 0.12);
+$line-input: rgba(18, 19, 18, 0.25);
+$line-btn: rgba(18, 19, 18, 0.2);
+
+$dark: #0c0d0d;
+$dark-surface: #1a1b1b;
+$dark-ink: #edede8;
+$dark-muted: #9a9c98;
+$dark-grey: #8e908c;
+$dark-text: #d6d7d2;
+$dark-text-2: #b7b9b4;
+$dark-line: rgba(237, 237, 232, 0.18);
+$dark-line-soft: rgba(237, 237, 232, 0.14);
+
+// Type
+$font-sans: var(--font-sans), system-ui, sans-serif;
+$font-mono: var(--font-mono), ui-monospace, monospace;
+
+// Layout
+$max: 1440px;
+$gutter: clamp(20px, 4vw, 56px);
+$header-h: 68px;
+
+// Breakpoints (from the design's JS: header at 860, story at 760)
+$bp-nav: 860px;
+$bp-story: 760px;
+
+// Motion
+$ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+// Radii
+$r-xl: 28px;
+$r-lg: 22px;
+$r-md: 12px;
+$r-pill: 999px;
+
+// GSAP expo.out sampled into CSS linear() so CSS-driven reveals match the GSAP ones exactly.
+$expo-out: linear(0 0%, 0.1294 2%, 0.2421 4%, 0.3402 6%, 0.4257 8%, 0.5 10%, 0.5939 13%, 0.6701 16%, 0.75 20%, 0.8232 25%, 0.875 30%, 0.9175 36%, 0.9492 43%, 0.9688 50%, 0.9844 60%, 0.9922 70%, 0.9972 85%, 1 100%);

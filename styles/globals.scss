@@ -1,0 +1,102 @@
+@use 'tokens' as *;
+@use 'motion';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: $bg;
+  color: $ink;
+  font-family: $font-sans;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+a {
+  color: $ink;
+  text-decoration: none;
+}
+a:hover {
+  color: $accent;
+}
+
+::selection {
+  background: $ink;
+  color: $bg;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+// Visible focus ring everywhere (WCAG 2.2 — 2.4.7 / 2.4.11)
+:focus-visible {
+  outline: 2px solid $accent;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: $r-pill;
+  background: $ink;
+  color: $bg;
+  font-size: 14px;
+  font-weight: 500;
+  transform: translateY(-160%);
+  transition: transform 0.3s $ease;
+  &:focus,
+  &:focus-visible {
+    transform: translateY(0);
+    color: $bg;
+  }
+}

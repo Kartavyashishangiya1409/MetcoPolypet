@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.env*
+!.env.example
+.vercel
+# design-tool leftovers (not part of the site)
+screenshots/
+uploads/
+.thumbnail
+# render scratch
+scripts/render/.out/

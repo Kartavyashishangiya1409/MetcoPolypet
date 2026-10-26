@@ -1,0 +1,85 @@
+// CSS side of the motion system. "Now" reveals (first heading + above-the-fold fades) run as
+// keyframes from first paint, with the same values as the design's GSAP init():
+//   lines:  yPercent 115 → 0, 1.3s, expo.out, stagger .09, delay .2
+//   fades:  y 32 → 0 + opacity, 1.2s, expo.out, delay .55
+//   hero:   opacity 0, scale .92, y 60 → identity, 2s, expo.out, delay .3
+// fill-mode `backwards` so the element falls back to its own styles once finished (GSAP can then
+// own the transform for scroll effects).
+@use 'tokens' as *;
+
+@keyframes line-up {
+  from {
+    transform: translateY(115%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    transform: translateY(32px);
+    opacity: 0;
+  }
+}
+
+@keyframes hero-in {
+  from {
+    transform: translateY(60px) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    clip-path: inset(100% 0% 0% 0%);
+  }
+}
+
+@keyframes wipe-scale {
+  from {
+    transform: scale(1.2);
+  }
+}
+
+@mixin line-now($index: 0) {
+  animation: line-up 1.3s $expo-out backwards;
+  animation-delay: 0.2s + $index * 0.09s;
+}
+
+@mixin fade-now {
+  animation: fade-up 1.2s $expo-out 0.55s backwards;
+}
+
+@mixin hero-now {
+  animation: hero-in 2s $expo-out 0.3s backwards;
+}
+
+[data-now] [data-line] {
+  @include line-now;
+}
+@for $i from 2 through 4 {
+  [data-now] > :nth-child(#{$i}) > [data-line] {
+    animation-delay: 0.2s + ($i - 1) * 0.09s;
+  }
+}
+[data-fade-now] {
+  @include fade-now;
+}
+[data-hero-intro] {
+  @include hero-now;
+}
+// Clip wipe for banners near the top of a page (same values as the scroll-triggered GSAP one)
+[data-wipe-now] {
+  animation: wipe-in 1.5s $expo-out 0.35s backwards;
+  > * {
+    animation: wipe-scale 2s $expo-out 0.35s backwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-now] [data-line],
+  [data-fade-now],
+  [data-hero-intro],
+  [data-wipe-now],
+  [data-wipe-now] > * {
+    animation: none;
+  }
+}

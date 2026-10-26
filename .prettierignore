@@ -1,0 +1,12 @@
+.next
+node_modules
+public
+uploads
+screenshots
+*.dc.html
+support.js
+image-slot.js
+preform-3d.js
+preform-glb.js
+preform-img.js
+package-lock.json
