@@ -1,5 +1,6 @@
 import { nav, site } from '@/content/site';
 import { TransitionLink } from './TransitionLink';
+import { Wordmark } from './Wordmark';
 import s from './Footer.module.scss';
 
 export function Footer() {
@@ -29,38 +30,51 @@ export function Footer() {
           </address>
         </div>
 
-        <svg viewBox="0 0 1000 150" aria-hidden="true" className={s.wordmark}>
-          <text
-            x="500"
-            y="118"
-            textAnchor="middle"
-            textLength="1000"
-            lengthAdjust="spacingAndGlyphs"
-          >
-            {site.name}
-          </text>
-        </svg>
+        <Wordmark text={site.name} />
 
         <div className={s.legal}>
           <span>
-            © {site.copyrightYear} {site.legalName} · GSTIN {site.gstin}
+            © {site.copyrightYear} {site.legalName}
           </span>
-          <span>
-            {site.socials.map((so, i) => (
-              <span key={so.label}>
-                {i > 0 && ' · '}
-                {so.href ? (
-                  <a href={so.href} rel="noopener" target="_blank">
-                    {so.label}
-                  </a>
-                ) : (
-                  so.label
-                )}
-              </span>
-            ))}
+          <span className={s.socials}>
+            {site.socials.map((so) =>
+              so.href ? (
+                <a
+                  key={so.label}
+                  href={so.href}
+                  rel="noopener"
+                  target="_blank"
+                  aria-label={so.label}
+                >
+                  <InstagramIcon />
+                </a>
+              ) : (
+                <span key={so.label} role="img" aria-label={so.label}>
+                  <InstagramIcon />
+                </span>
+              ),
+            )}
           </span>
         </div>
       </div>
     </footer>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+    </svg>
   );
 }

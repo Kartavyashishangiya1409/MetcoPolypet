@@ -37,14 +37,17 @@
   @include underline-link;
   color: $dark-ink;
   &:hover {
-    color: $accent-light;
+    color: $grey-mid;
   }
 }
 
 .track {
   display: flex;
-  gap: 20px;
+  gap: clamp(20px, 3vw, 48px);
   width: max-content;
+  // Centred when the cards fit; when they overflow, auto margins collapse to 0 and the track
+  // starts at the left edge for the scroll-driven slide.
+  margin: 0 auto;
   padding: 0 $gutter;
 }
 
@@ -81,11 +84,7 @@
 .range {
   font-family: $font-mono;
   font-size: 12px;
-  color: $accent-light;
-}
-
-.app {
-  @include eyebrow($dark-muted, 0.06em);
+  color: $grey-mid;
 }
 
 // Reduced motion: no scroll-jacking — the rail becomes a native horizontal scroller.
@@ -103,7 +102,29 @@
   }
   .track {
     width: 100%;
+    justify-content: safe center;
     overflow-x: auto;
     padding-bottom: 12px;
+  }
+}
+
+// Tablet: cards fill the screen width for a smooth horizontal scroll
+@media (min-width: 601px) and (max-width: 1024px) {
+  .card {
+    width: calc(100vw - #{$gutter} * 2 - 48px);
+  }
+  .track {
+    gap: 24px;
+  }
+}
+
+// Mobile: first card fully visible on initial load
+@media (max-width: 600px) {
+  .card {
+    width: calc(100vw - #{$gutter} * 2);
+  }
+  .track {
+    gap: 20px;
+    padding: 0 $gutter;
   }
 }

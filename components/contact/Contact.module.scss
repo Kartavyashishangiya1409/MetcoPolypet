@@ -98,6 +98,19 @@
   display: block;
   filter: grayscale(1) contrast(1.05);
 }
+// On mobile/tablet: hide the map inside quoteIntro, show the one below the form
+.mapDesktop {
+  @media (max-width: 1023px) {
+    display: none;
+  }
+}
+.mapMobile {
+  grid-column: 1 / -1;
+  display: none;
+  @media (max-width: 1023px) {
+    display: block;
+  }
+}
 
 // Form
 .form {
@@ -130,7 +143,7 @@
   }
   // Keep a visible keyboard focus indicator (WCAG 2.4.7) on top of the underline.
   &:focus-visible {
-    outline: 2px solid $accent;
+    outline: 2px solid $grey-mid;
     outline-offset: 4px;
   }
   &::placeholder {
@@ -149,7 +162,8 @@ select.input {
   @extend %control;
   padding: 12px 0;
   line-height: 1.5;
-  resize: vertical;
+  height: 132px;
+  resize: none;
 }
 .invalid {
   border-bottom-color: $error;
@@ -217,7 +231,7 @@ select.input {
   gap: 48px;
 }
 .sentLabel {
-  @include eyebrow($accent-light);
+  @include eyebrow($grey-mid);
 }
 .sentBody {
   display: flex;
@@ -280,5 +294,5 @@ select.input {
 }
 .deptE {
   @include mono(13px);
-  color: $accent;
+  color: $grey;
 }

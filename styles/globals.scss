@@ -38,7 +38,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: $accent;
+  color: $grey;
 }
 
 ::selection {
@@ -57,9 +57,18 @@ img {
   max-width: 100%;
 }
 
+// No visible scrollbars anywhere (scrolling still works).
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
 // Visible focus ring everywhere (WCAG 2.2 — 2.4.7 / 2.4.11)
 :focus-visible {
-  outline: 2px solid $accent;
+  outline: 2px solid $grey-mid;
   outline-offset: 3px;
   border-radius: 4px;
 }

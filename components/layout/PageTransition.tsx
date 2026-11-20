@@ -14,7 +14,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { gsap, ScrollTrigger, prefersReducedMotion } from '@/components/motion/gsap';
 import { initMotion } from '@/components/motion/initMotion';
 import { getLenis, scrollToTop } from '@/lib/lenis';
-import { transitionLabel } from '@/content/site';
+import { transitionLabel, nav } from '@/content/site';
 import s from './PageTransition.module.scss';
 
 type Nav = {
@@ -57,9 +57,8 @@ export function PageTransition({ children }: { children: ReactNode }) {
     pending.current = false;
     gsap.to(panel, {
       yPercent: -200,
-      duration: 0.85,
+      duration: 0.4,
       ease: 'expo.inOut',
-      delay: 0.12,
       onComplete: () => {
         gsap.set(panel, { yPercent: 0 });
       },
@@ -84,8 +83,10 @@ export function PageTransition({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    // Eagerly prefetch all nav destinations for snappy first-time navigations.
+    nav.forEach((n) => router.prefetch(n.href));
     return () => ctx.current?.revert();
-  }, []);
+  }, [router]);
 
   const navigate = useCallback(
     (href: string) => {
@@ -112,14 +113,14 @@ export function PageTransition({ children }: { children: ReactNode }) {
         { yPercent: 0 },
         {
           yPercent: -100,
-          duration: 0.65,
+          duration: 0.35,
           ease: 'expo.inOut',
           onComplete: () => {
             pending.current = true;
             setMenuOpen(false);
             router.push(href, { scroll: false });
             // Never leave the panel covering the page if navigation stalls.
-            fallback.current = setTimeout(reveal, 4000);
+            fallback.current = setTimeout(reveal, 1500);
           },
         },
       );

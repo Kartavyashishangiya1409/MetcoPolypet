@@ -32,9 +32,12 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  // Wrapping flex rather than grid: steps on a short last row stretch to fill it, so the
+  // line-coloured background (the 1px gaps draw the dividers) never shows as an empty cell.
+  display: flex;
+  flex-wrap: wrap;
   gap: 1px;
+  container-type: inline-size;
   background: $line;
   border: 1px solid $line;
   border-radius: 24px;
@@ -42,17 +45,23 @@
 }
 
 .step {
+  flex: 1 1 210px;
+  min-width: 0;
   background: $bg;
   padding: 32px 28px 40px;
   display: flex;
   flex-direction: column;
   gap: 56px;
   min-height: 280px;
+  // Where 4 would fit but not 5 (4×210 + 3 gaps → 5×210 + 4 gaps), go 3 + 2 instead of 4 + 1.
+  @container (min-width: 843px) and (max-width: 1053px) {
+    flex-basis: 30%;
+  }
 }
 
 .n {
   @include mono;
-  color: $accent;
+  color: $grey;
 }
 
 .body {

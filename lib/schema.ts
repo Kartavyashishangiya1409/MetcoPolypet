@@ -30,21 +30,14 @@ export function organization() {
     legalName: site.legalName,
     description: site.description,
     url: site.url,
-    logo: absoluteUrl('/icon.svg'),
+    logo: absoluteUrl('/images/brand/metco-icon-512.png'),
     image: imageUrl('about-lineup'),
     email: site.email.sales,
     telephone: site.phone.tel,
     address: postalAddress(),
     ...(isPlaceholder(site.foundingYear) ? {} : { foundingDate: site.foundingYear }),
     ...(isPlaceholder(site.gstin) ? {} : { taxID: site.gstin }),
-    knowsAbout: [
-      'PET preforms',
-      'Injection moulding',
-      '28 mm PCO 1881 preforms',
-      '28 mm PCO 1810 preforms',
-      'Edible oil preforms',
-      'Wide-mouth jar preforms',
-    ],
+    knowsAbout: ['PET preforms', 'Injection moulding', '28 mm PCO 1881 preforms'],
     areaServed: { '@type': 'Country', name: 'India' },
     contactPoint: [
       {

@@ -30,32 +30,6 @@
   }
 }
 
-// Clients
-.clients {
-  border-top: 1px solid $line;
-  border-bottom: 1px solid $line;
-}
-.clientsGrid {
-  @include container;
-  padding-top: 44px;
-  padding-bottom: 44px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 24px;
-  align-items: center;
-}
-.logoSlot {
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border: 1px dashed rgba(18, 19, 18, 0.22);
-  border-radius: 8px;
-  font-family: $font-mono;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: $muted;
-}
-
 // CTA
 .cta {
   @include container;

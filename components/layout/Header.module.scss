@@ -1,46 +1,118 @@
 @use 'tokens' as *;
 @use 'mixins' as *;
 
+// Floating capsule: the header is a transparent strip (clicks pass through its margins);
+// .inner is the glass capsule, 12px from the top, 56px tall — together still $header-h.
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  transform: translateY(0%);
-  background: rgba(244, 244, 241, 0);
-  border-bottom: 1px solid rgba(18, 19, 18, 0);
-  backdrop-filter: saturate(1.6) blur(18px);
-  -webkit-backdrop-filter: saturate(1.6) blur(18px);
+  padding: 12px clamp(12px, 3vw, 40px) 0;
+  pointer-events: none;
+}
+
+// Liquid glass, in two layers under the capsule's content:
+// ::before — the backdrop: blur + saturation, plus (Chromium, .lens) the SVG lens filter
+//   that bends the page along the rim. It lives on a pseudo-element because an element with a
+//   backdrop-filter stops its descendants from seeing the page behind it.
+// ::after — tint, a soft specular sheen on the upper half, bright rims and the drop shadow.
+.inner::before,
+.inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
   transition:
-    transform 0.5s $ease,
-    background 0.4s,
-    border-color 0.4s;
+    background-color 0.35s,
+    box-shadow 0.35s;
 }
-.hidden {
-  transform: translateY(-100%);
+.inner::before {
+  backdrop-filter: blur(8px) saturate(1.6);
+  -webkit-backdrop-filter: blur(8px) saturate(1.6);
 }
-.filled {
-  background: rgba(244, 244, 241, 0.78);
+.lens::before {
+  backdrop-filter: url(#liquid-glass) blur(2px) saturate(1.6);
 }
-.lined {
-  border-bottom-color: rgba(18, 19, 18, 0.08);
+.inner::after {
+  // Light glass is kept as clear as the dark one: a thin tint and a faint sheen, with the edge
+  // drawn by the bright rim plus a dark hairline and shadow (white rims alone vanish on white).
+  background-color: rgba(244, 244, 241, 0.24);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0) 51%
+  );
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0.5px rgba(255, 255, 255, 0.4),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.18),
+    0 0 0 0.5px rgba(18, 19, 18, 0.14),
+    0 10px 30px -12px rgba(18, 19, 18, 0.2);
 }
+.lens::after {
+  background-color: rgba(244, 244, 241, 0.06);
+}
+.onDark .inner::after {
+  background-color: rgba(18, 19, 18, 0.5);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0) 51%
+  );
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0.5px rgba(255, 255, 255, 0.12),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.18),
+    inset 0 0 14px rgba(255, 255, 255, 0.08),
+    0 0 0 0.5px rgba(0, 0, 0, 0.4),
+    0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+// No backdrop-filter support: denser tints keep the links readable.
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .inner::after {
+    background-color: rgba(244, 244, 241, 0.94);
+  }
+  .onDark .inner::after {
+    background-color: rgba(18, 19, 18, 0.94);
+  }
+}
+// The glass is clear, so text gets a soft halo in the page colour (like iOS vibrancy): links
+// stay readable when a big headline slides behind the capsule.
+.logo,
+.nav a {
+  text-shadow:
+    0 0 8px rgba(244, 244, 241, 0.9),
+    0 0 2px rgba(244, 244, 241, 0.8);
+}
+.onDark .logo,
+.onDark .nav a {
+  text-shadow:
+    0 0 8px rgba(12, 13, 13, 0.9),
+    0 0 2px rgba(12, 13, 13, 0.8);
+}
+.lensDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 // Transparent header over a dark hero: switch to light ink (WCAG contrast).
 .onDark {
   .logo {
     color: $dark-ink;
   }
-  .mark {
-    border-color: $dark-ink;
-    span {
-      background: $dark-ink;
-    }
-  }
   .nav a {
     color: $dark-muted;
     &:hover {
-      color: $accent-light;
+      color: #ffffff;
     }
   }
   .nav a.active {
@@ -56,13 +128,9 @@
   }
   .menuBtn {
     color: $dark-ink;
-    border-color: rgba(237, 237, 232, 0.3);
   }
 }
 .logo,
-.mark,
-.mark span,
-.nav a,
 .cta,
 .menuBtn {
   transition:
@@ -71,14 +139,14 @@
     border-color 0.4s;
 }
 
-// Keyboard users tabbing into a hidden header bring it back.
-.header:focus-within {
-  transform: translateY(0%);
-}
-
 .inner {
-  @include container;
-  height: $header-h;
+  position: relative;
+  max-width: $max - 80px;
+  height: $header-h - 12px;
+  margin: 0 auto;
+  padding: 0 8px 0 16px;
+  border-radius: $r-pill;
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -92,18 +160,10 @@
   color: $ink;
 }
 .mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid $ink;
-  display: grid;
-  place-items: center;
-  span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: $ink;
-  }
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
 .word {
   font-size: 17px;
@@ -121,7 +181,7 @@
     color: $muted;
     transition: color 0.2s;
     &:hover {
-      color: $accent;
+      color: $ink;
     }
   }
   a.active {
@@ -148,15 +208,63 @@
 
 .menuBtn {
   display: none;
+  place-items: center;
+  width: 44px;
   height: 44px;
-  padding: 0 18px;
-  border-radius: $r-pill;
-  border: 1px solid $line-btn;
+  padding: 0;
+  border: 0;
   background: transparent;
-  font-size: 14px;
-  font-weight: 500;
   color: $ink;
   cursor: pointer;
+}
+
+// Two bars that slide together, then cross into an X (and the reverse on close).
+.bars {
+  position: relative;
+  width: 18px;
+  height: 8px;
+  span {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 1.5px;
+    border-radius: 1px;
+    background: currentColor;
+    // Closing: un-rotate first, then slide apart.
+    transition:
+      translate 0.3s $ease 0.18s,
+      rotate 0.3s $ease,
+      width 0.3s $ease 0.18s;
+  }
+  span:first-child {
+    top: 0;
+  }
+  span:last-child {
+    bottom: 0;
+    width: 60%;
+  }
+}
+.open .bars span {
+  // Opening: slide together first, then rotate into the X.
+  transition:
+    translate 0.3s $ease,
+    rotate 0.3s $ease 0.18s,
+    width 0.3s $ease;
+}
+.open .bars span:first-child {
+  translate: 0 3.25px;
+  rotate: 45deg;
+}
+.open .bars span:last-child {
+  width: 100%;
+  translate: 0 -3.25px;
+  rotate: -45deg;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bars span,
+  .open .bars span {
+    transition: none;
+  }
 }
 
 @include below($bp-nav) {
@@ -165,7 +273,7 @@
     display: none;
   }
   .menuBtn {
-    display: inline-block;
+    display: grid;
   }
 }
 
@@ -177,15 +285,25 @@
   padding: 110px 24px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
   @include from($bp-nav) {
     display: none;
   }
 }
 .menuNav {
+  // Dead centre of the screen, evenly spaced; the contact lines stay pinned to the bottom.
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: max-content; // left: 50% would otherwise cap it at half the screen and wrap labels
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 4vh, 36px);
   a {
     font-size: 52px;
     font-weight: 500;

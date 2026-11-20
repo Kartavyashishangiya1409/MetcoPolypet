@@ -17,6 +17,7 @@ export function initMotion(root: HTMLElement, firstLoad: boolean): gsap.Context 
   const vh = window.innerHeight;
   const inView = (el: Element, ratio = 1) => el.getBoundingClientRect().top < vh * ratio;
 
+  const restore: (() => void)[] = [];
   const ctx = gsap.context(() => {
     // Headline line reveal (scroll-triggered; [data-now] headings are handled in CSS)
     root.querySelectorAll<HTMLElement>('[data-split]:not([data-now])').forEach((grp) => {
@@ -117,12 +118,46 @@ export function initMotion(root: HTMLElement, firstLoad: boolean): gsap.Context 
         );
     });
 
+    // Ink-in: the text fills from #9a9c98 to ink character by character, in reading order, as
+    // the paragraph's top travels from 30% above the bottom of the screen to 150px from the top.
+    // Scrubbed, so scrolling back up un-fills it. Characters are wrapped in spans for the sweep;
+    // the original markup is restored when the context reverts.
+    root.querySelectorAll<HTMLElement>('[data-ink]').forEach((el) => {
+      const html = el.innerHTML;
+      restore.push(() => (el.innerHTML = html));
+      const chars = splitChars(el);
+      gsap.fromTo(
+        chars,
+        { color: '#9a9c98' },
+        {
+          color: '#121312',
+          // Each character turns over ~2% of the scroll, so a crisp grey/ink edge travels the text.
+          duration: 0.02,
+          ease: 'none',
+          stagger: { amount: 0.98 },
+          scrollTrigger: { trigger: el, start: 'top 70%', end: 'top 150px', scrub: true },
+        },
+      );
+    });
+
     // Range rail: horizontal track driven by vertical scroll
     root.querySelectorAll<HTMLElement>('[data-rail]').forEach((sec) => {
       const tr = sec.querySelector<HTMLElement>('[data-rail-track]');
       if (!tr) return;
+      // Reset track position to ensure 1st card is visible on initial load
+      gsap.set(tr, { x: 0 });
+      const travel = () => Math.max(0, tr.scrollWidth - sec.clientWidth);
+      // Pinned length follows the horizontal travel (~1.3px of scroll per px moved), so a short
+      // track doesn't leave screens of dead scroll; when the cards all fit it isn't pinned at all.
+      const fit = () => (sec.style.height = `${window.innerHeight + travel() * 1.3}px`);
+      fit();
+      ScrollTrigger.addEventListener('refreshInit', fit);
+      restore.push(() => {
+        ScrollTrigger.removeEventListener('refreshInit', fit);
+        sec.style.height = '';
+      });
       gsap.to(tr, {
-        x: () => -Math.max(0, tr.scrollWidth - sec.clientWidth),
+        x: () => -travel(),
         ease: 'none',
         scrollTrigger: {
           trigger: sec,
@@ -133,8 +168,33 @@ export function initMotion(root: HTMLElement, firstLoad: boolean): gsap.Context 
         },
       });
     });
+
+    return () => restore.forEach((fn) => fn());
   }, root);
 
   ScrollTrigger.refresh();
   return ctx;
+}
+
+/** Wraps every non-space character under `el` in its own span (nested markup is kept). */
+function splitChars(el: HTMLElement): HTMLSpanElement[] {
+  const chars: HTMLSpanElement[] = [];
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const nodes: Text[] = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode as Text);
+  for (const node of nodes) {
+    const frag = document.createDocumentFragment();
+    for (const ch of node.data) {
+      if (/\s/.test(ch)) {
+        frag.append(ch);
+        continue;
+      }
+      const span = document.createElement('span');
+      span.textContent = ch;
+      chars.push(span);
+      frag.append(span);
+    }
+    node.replaceWith(frag);
+  }
+  return chars;
 }

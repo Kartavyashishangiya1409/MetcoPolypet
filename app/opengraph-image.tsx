@@ -1,6 +1,6 @@
 import { renderOg, ogSize, ogContentType } from '@/lib/og';
 
-export const alt = 'Metco Polypet — PET preforms from 20 mm to 63 mm neck finishes';
+export const alt = 'Metco Polypet — 28 mm PCO 1881 PET preforms';
 export const size = ogSize;
 export const contentType = ogContentType;
 

@@ -17,7 +17,7 @@ export function Industries() {
             id="ind-h"
             className={s.h2}
             lines={[
-              'Six markets.',
+              'Three markets.',
               <span key="o" className={t.grey}>
                 One standard.
               </span>,

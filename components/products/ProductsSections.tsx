@@ -29,8 +29,8 @@ export function ProductsHero() {
           ]}
         />
         <p {...fade(true)} className={s.lede}>
-          Standard preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g, in clear, tinted and
-          opaque colours. Custom designs on request.
+          Standard 28 mm PCO 1881 preforms from 9.5 g to 18 g, in clear and light blue. Custom
+          designs on request.
         </p>
       </div>
       <div className={s.bannerWrap}>

@@ -25,14 +25,6 @@ export function ProductCard({ product: p }: { product: Product }) {
         </h3>
         <span className={s.weight}>{p.w}</span>
       </div>
-      <dl className={s.specs}>
-        <dt>Neck</dt>
-        <dd>{p.neck}</dd>
-        <dt>Height</dt>
-        <dd>{p.h}</dd>
-        <dt>Use</dt>
-        <dd>{p.app}</dd>
-      </dl>
     </article>
   );
 }

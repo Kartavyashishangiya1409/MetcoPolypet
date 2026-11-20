@@ -115,7 +115,7 @@ const entries: [string, PreformImageSpec][] = [
   ],
   [
     'infra-store',
-    S('trio', '46,112,amber;28,116,green;63,78,clear', BG.light, 320, 440, { pad: '1.25' }),
+    S('trio', '38,96,white;28,116,green;30,90,blue', BG.light, 320, 440, { pad: '1.25' }),
   ],
   ['team-1', S('tilt', '28,110,clear', BG.light, 430, 322)],
   ['team-2', S('tilt', '30,90,blue', BG.light, 430, 322)],
@@ -133,7 +133,7 @@ const entries: [string, PreformImageSpec][] = [
   // Contact
   [
     'contact-trio',
-    S('trio', '30,90,blue;28,116,clear;48,150,amber', BG.dark, 1328, 560, { pad: '1.2' }),
+    S('trio', '30,90,blue;28,116,clear;38,96,white', BG.dark, 1328, 560, { pad: '1.2' }),
   ],
 ];
 

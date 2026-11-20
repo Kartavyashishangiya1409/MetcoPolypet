@@ -9,9 +9,9 @@ export const story = [
   {
     n: '02',
     layout: 'trio',
-    pf: '20,64,amber;28,116,green;48,150,clear',
-    title: 'From 6 g to 85 g.',
-    spec: 'Light water preforms through heavy edible-oil and jar preforms, on dedicated moulds.',
+    pf: '28,72,clear;28,84,blue;28,98,blue',
+    title: 'From 9.5 g to 18 g.',
+    spec: 'From 200 ml up to 1-litre water bottle preforms, each on its own dedicated mould.',
   },
   {
     n: '03',
@@ -36,31 +36,18 @@ export const necks = [
     pf: '28,98,clear',
     name: '28 mm PCO 1881',
     range: '9.5 – 25 g',
-    app: 'Water · CSD',
   },
   {
     id: '1810',
     pf: '28,116,green',
     name: '28 mm PCO 1810',
     range: '21 – 42 g',
-    app: 'Carbonated soft drinks',
   },
   {
     id: '3025',
     pf: '30,90,blue',
     name: '29/25 · 30/25',
     range: '8 – 19 g',
-    app: 'Packaged drinking water',
-  },
-  { id: '38', pf: '38,96,white', name: '38 mm 3-start', range: '22 – 42 g', app: 'Juice · Dairy' },
-  { id: '46', pf: '46,112,amber', name: '46 · 48 mm', range: '38 – 85 g', app: 'Edible oil' },
-  { id: '63', pf: '63,78,clear', name: '53 – 63 mm', range: '30 – 75 g', app: 'Wide-mouth jars' },
-  {
-    id: '20',
-    pf: '20,64,amber',
-    name: '20 · 24 mm',
-    range: '6 – 18 g',
-    app: 'Pharma · Personal care',
   },
 ];
 
@@ -80,15 +67,6 @@ export const industries = [
     necks: 'PCO 1810 · PCO 1881',
   },
   { n: '03', id: 'juice', pf: '38,96,white', name: 'Juices & dairy', necks: '38 mm 3-start' },
-  { n: '04', id: 'oil', pf: '48,150,amber', name: 'Edible oil', necks: '46 mm · 48 mm' },
-  { n: '05', id: 'pharma', pf: '20,64,amber', name: 'Pharmaceuticals', necks: '20/410 · 24/410' },
-  {
-    n: '06',
-    id: 'care',
-    pf: '24,82,white',
-    name: 'Personal & home care',
-    necks: '24/410 · 28/410',
-  },
 ];
 
 export const processSteps = [
@@ -120,4 +98,3 @@ export const processSteps = [
 ];
 
 /** Client logo slots — client to supply monochrome logos (see TODO.md) */
-export const clientLogos = ['a', 'b', 'c', 'd', 'e'];

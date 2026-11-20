@@ -1,7 +1,6 @@
 export type Tint = 'clear' | 'blue' | 'green' | 'amber' | 'white';
 
-export type Application =
-  'Water' | 'CSD' | 'Juice & dairy' | 'Edible oil' | 'Pharma' | 'Personal care' | 'Jars';
+export type Application = 'Water' | 'CSD' | 'Juice & dairy';
 
 export interface Product {
   /** Public URL slug */
@@ -57,126 +56,6 @@ const RAW: Omit<Product, 'pf'>[] = [
     vol: '1 L',
     tint: 'blue',
   },
-  {
-    slug: '28mm-pco-1881-25g',
-    id: 'pco1881-25',
-    name: '28 mm PCO 1881 · 25 g',
-    neck: '28 mm PCO 1881',
-    w: '25 g',
-    h: '110 mm',
-    app: 'CSD',
-    colours: 'Clear, green',
-    vol: '600 ml – 1 L',
-    tint: 'clear',
-  },
-  {
-    slug: '28mm-pco-1810-28g',
-    id: 'pco1810-28',
-    name: '28 mm PCO 1810 · 28 g',
-    neck: '28 mm PCO 1810',
-    w: '28 g',
-    h: '116 mm',
-    app: 'CSD',
-    colours: 'Clear, green',
-    vol: '1 – 1.25 L',
-    tint: 'green',
-  },
-  {
-    slug: '28mm-pco-1810-42g',
-    id: 'pco1810-42',
-    name: '28 mm PCO 1810 · 42 g',
-    neck: '28 mm PCO 1810',
-    w: '42 g',
-    h: '138 mm',
-    app: 'CSD',
-    colours: 'Clear, green',
-    vol: '2 – 2.25 L',
-    tint: 'clear',
-  },
-  {
-    slug: '30-25-short-neck-19g',
-    id: 'n3025-19',
-    name: '30/25 · 19 g',
-    neck: '30/25 short neck',
-    w: '19 g',
-    h: '90 mm',
-    app: 'Water',
-    colours: 'Clear, light blue',
-    vol: '1 – 2 L',
-    tint: 'blue',
-  },
-  {
-    slug: '38mm-3-start-30g',
-    id: 'n38-30',
-    name: '38 mm 3-start · 30 g',
-    neck: '38 mm 3-start',
-    w: '30 g',
-    h: '96 mm',
-    app: 'Juice & dairy',
-    colours: 'Clear, white opaque',
-    vol: '500 ml – 1 L',
-    tint: 'white',
-  },
-  {
-    slug: '46mm-42g',
-    id: 'n46-42',
-    name: '46 mm · 42 g',
-    neck: '46 mm',
-    w: '42 g',
-    h: '112 mm',
-    app: 'Edible oil',
-    colours: 'Clear, amber tint',
-    vol: '1 L',
-    tint: 'amber',
-  },
-  {
-    slug: '48mm-85g',
-    id: 'n48-85',
-    name: '48 mm · 85 g',
-    neck: '48 mm',
-    w: '85 g',
-    h: '150 mm',
-    app: 'Edible oil',
-    colours: 'Clear',
-    vol: '5 L',
-    tint: 'clear',
-  },
-  {
-    slug: '63mm-wide-mouth-48g',
-    id: 'n63-48',
-    name: '63 mm wide-mouth · 48 g',
-    neck: '63 mm',
-    w: '48 g',
-    h: '78 mm',
-    app: 'Jars',
-    colours: 'Clear',
-    vol: '500 g – 1 kg jars',
-    tint: 'clear',
-  },
-  {
-    slug: '20-410-8g',
-    id: 'n20-8',
-    name: '20/410 · 8 g',
-    neck: '20 mm 20/410',
-    w: '8 g',
-    h: '64 mm',
-    app: 'Pharma',
-    colours: 'Clear, amber, white',
-    vol: '60 – 100 ml',
-    tint: 'amber',
-  },
-  {
-    slug: '24-410-14g',
-    id: 'n24-14',
-    name: '24/410 · 14 g',
-    neck: '24 mm 24/410',
-    w: '14 g',
-    h: '82 mm',
-    app: 'Personal care',
-    colours: 'Clear, white, custom',
-    vol: '200 – 300 ml',
-    tint: 'white',
-  },
 ];
 
 export const products: Product[] = RAW.map((p) => ({
@@ -192,17 +71,6 @@ export const lineup = products
   .sort((a, b) => parseInt(a.h) - parseInt(b.h))
   .map((p) => p.pf)
   .join(';');
-
-export const applications = [
-  'All',
-  'Water',
-  'CSD',
-  'Juice & dairy',
-  'Edible oil',
-  'Pharma',
-  'Personal care',
-  'Jars',
-] as const;
 
 export const MATERIAL = 'Food-grade PET';
 export const PACKING = 'Lined carton / octabin';
@@ -225,7 +93,7 @@ export function describe(p: Product) {
   return `${p.neck} PET preform, ${p.w}, ${p.h} high, for ${p.vol} ${p.app.toLowerCase()} bottles. Colours: ${p.colours.toLowerCase()}. ${MATERIAL}.`;
 }
 
-// TODO: per-product spec sheet PDFs, keyed by slug (e.g. '/spec-sheets/48mm-85g.pdf').
+// TODO: per-product spec sheet PDFs, keyed by slug (e.g. '/spec-sheets/28mm-pco-1881-18g.pdf').
 // Until a PDF exists the "Spec sheet (PDF)" link requests one from sales by email.
 const SPEC_SHEETS: Partial<Record<string, string>> = {};
 export const specSheetHref = (p: Product) => SPEC_SHEETS[p.slug] ?? null;

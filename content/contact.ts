@@ -2,12 +2,10 @@ import { site } from './site';
 
 export const departments = [
   {
-    t: 'Sales',
-    d: 'Quotes, samples and order status for customers in India.',
+    t: 'Info',
+    d: 'General enquiries, quotes, samples and order status.',
     e: site.email.sales,
   },
-  { t: 'Exports', d: 'Enquiries from outside India.', e: site.email.exports },
-  { t: 'Careers', d: 'Production, quality and sales roles.', e: site.email.careers },
 ];
 
 export const formFields = [

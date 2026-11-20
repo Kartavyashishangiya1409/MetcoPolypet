@@ -42,8 +42,8 @@ export function Hero() {
             ]}
           />
           <p {...fade(true)} className={s.lede}>
-            Injection-moulded PET preforms for water, soft drinks, juice, edible oil, pharma and
-            personal care. Every neck finish, every gram weight, made to your closure spec.
+            Injection-moulded PET preforms for water, soft drinks, juice and dairy. Every neck
+            finish, every gram weight, made to your closure spec.
           </p>
           <div {...fade(true)} className={s.ctas}>
             <ButtonLink href="/products">
@@ -73,27 +73,6 @@ export function Hero() {
             </HeroStage>
           </div>
         </div>
-      </div>
-
-      <div className={s.specWrap}>
-        <dl {...fade(true)} className={s.specs}>
-          <div>
-            <dt>Neck finishes</dt>
-            <dd>20 – 63 mm</dd>
-          </div>
-          <div>
-            <dt>Gram weights</dt>
-            <dd>6 – 85 g</dd>
-          </div>
-          <div>
-            <dt>Material</dt>
-            <dd>Food-grade PET</dd>
-          </div>
-          <div className={s.scrollCue}>
-            <dt>Scroll</dt>
-            <dd aria-hidden="true">↓</dd>
-          </div>
-        </dl>
       </div>
     </section>
   );

@@ -9,24 +9,24 @@ export const figures = [
 
 export const milestones = [
   {
-    y: '[Year]',
+    y: '2026',
     t: 'Company founded',
-    d: '[First plant set up in City with two machines, supplying local water bottlers.]',
+    d: '[First plant set up in Rajkot with two machines, supplying local water bottlers.]',
   },
   {
-    y: '[Year]',
+    y: '2026',
     t: 'CSD and juice finishes added',
     d: '[PCO 1810 and 38 mm moulds commissioned for soft-drink and juice customers.]',
   },
   {
-    y: '[Year]',
+    y: '2026',
     t: 'Plant expansion',
     d: '[New production hall, automated resin handling and in-house QC laboratory.]',
   },
   {
-    y: '[Year]',
+    y: '2026',
     t: 'Today',
-    d: '[Supplying bottlers across India with preforms from 20 mm to 63 mm.]',
+    d: '[Supplying bottlers across India with 28 mm PCO 1881 preforms.]',
   },
 ];
 
@@ -42,14 +42,14 @@ export const infrastructure = [
 ];
 
 export const certifications = [
-  { n: 'ISO 9001:2015', d: '[Confirm]' },
-  { n: 'FSSC 22000 / ISO 22000', d: '[Confirm]' },
+  // { n: 'ISO 9001:2015', d: '[Confirm]' },
+  // { n: 'FSSC 22000 / ISO 22000', d: '[Confirm]' },
   { n: 'Food-grade PET resin', d: 'Supplier COA per lot' },
   { n: 'Batch traceability', d: 'Resin lot · machine · shift' },
 ];
 
 export const team = [
-  { id: '1', n: '[Name]', r: 'Managing Director' },
-  { id: '2', n: '[Name]', r: 'Director, Operations' },
-  { id: '3', n: '[Name]', r: 'Head of Sales' },
+  { id: '1', n: '[Name]', r: 'Managing Director', q: 'Building a company that stands for precision and trust.' },
+  { id: '2', n: '[Name]', r: 'Director, Operations', q: 'Every preform that leaves our line carries our reputation.' },
+  { id: '3', n: '[Name]', r: 'Head of Sales', q: 'Our clients grow when we deliver on every promise.' },
 ];

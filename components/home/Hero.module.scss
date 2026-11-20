@@ -113,36 +113,3 @@
   cursor: grab;
   touch-action: pan-y;
 }
-
-// Spec strip
-.specWrap {
-  @include container;
-}
-
-.specs {
-  margin: 0;
-  border-top: 1px solid $line;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
-  padding: 22px 0 28px;
-  font-family: $font-mono;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-
-  > div {
-    display: flex;
-    gap: 10px;
-  }
-  dt {
-    color: $muted;
-  }
-  dd {
-    margin: 0;
-  }
-}
-
-.scrollCue {
-  justify-content: flex-end;
-}

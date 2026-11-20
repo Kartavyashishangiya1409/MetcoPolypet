@@ -3,11 +3,11 @@
 
 export const site = {
   name: 'Metco Polypet',
-  legalName: 'Metco Polypet [Pvt. Ltd.]',
+  legalName: 'Metco Polypet Pvt. Ltd.',
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.metcopolypet.com').replace(/\/$/, ''),
   tagline: "PET preforms for India's bottlers.",
   description:
-    'Manufacturer of PET preforms for beverage, edible oil, pharma and personal care packaging.',
+    'Manufacturer of PET preforms for drinking water, soft drink, juice and dairy packaging.',
   locale: 'en_IN',
 
   phone: {
@@ -27,15 +27,15 @@ export const site = {
 
   address: {
     street: '[Plot no., Industrial area]',
-    city: '[City]',
-    region: '[State]',
+    city: 'Rajkot',
+    region: 'Gujarat',
     postalCode: '[PIN]',
     country: 'India',
     countryCode: 'IN',
     /** Short form used in the footer */
-    short: '[City, State], India',
+    short: 'Rajkot, Gujarat, India',
     /** Second line on the contact page */
-    cityLine: '[City, State PIN], India',
+    cityLine: 'Rajkot, Gujarat [PIN], India',
   },
   hours: {
     display: 'Mon – Sat, 9:30 – 18:30 IST',
@@ -45,13 +45,10 @@ export const site = {
   geo: null as null | { lat: number; lng: number },
 
   gstin: '[00XXXXX0000X0X0]',
-  foundingYear: '[Year]',
+  foundingYear: '2026',
   copyrightYear: 2026,
 
-  socials: [
-    { label: 'LinkedIn', href: '' }, // TODO: LinkedIn company page URL
-    { label: 'IndiaMART', href: '' }, // TODO: IndiaMART storefront URL
-  ],
+  socials: [{ label: 'Instagram', href: 'https://www.instagram.com/metcopolypet' }],
 } as const;
 
 export const nav = [

@@ -1,6 +1,5 @@
-import { clientLogos } from '@/content/home';
 import { SplitLines } from '@/components/motion/SplitLines';
-import { fade } from '@/components/motion/attrs';
+import { fade, ink } from '@/components/motion/attrs';
 import { ButtonLink } from '@/components/ui/Button';
 import t from '@/components/ui/tone.module.scss';
 import s from './HomeSections.module.scss';
@@ -13,30 +12,14 @@ export function InBrief() {
         <span {...fade()} className={s.eyebrow}>
           In brief
         </span>
-        <p {...fade()} className={s.briefText}>
+        <p {...fade()} {...ink} className={s.briefText}>
           Metco Polypet is an Indian manufacturer of PET preforms. We supply bottlers and brand
-          owners with preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g,{' '}
+          owners with 28 mm PCO 1881 preforms from 9.5 g to 18 g,{' '}
           <span className={t.grey}>
             moulded from food-grade resin and checked against closure specifications before
             dispatch.
           </span>
         </p>
-      </div>
-    </section>
-  );
-}
-
-/** Monochrome client logo strip — slots are placeholders until the client supplies logos. */
-export function Clients() {
-  return (
-    <section aria-label="Clients" className={s.clients}>
-      <div className={s.clientsGrid}>
-        <span className={s.eyebrow}>Trusted by</span>
-        {clientLogos.map((l) => (
-          <div key={l} className={s.logoSlot}>
-            [Client logo]
-          </div>
-        ))}
       </div>
     </section>
   );

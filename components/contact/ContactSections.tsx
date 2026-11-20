@@ -82,7 +82,7 @@ export function QuoteSection() {
           Include the neck finish, gram weight and monthly volume. Our sales team replies within one
           working day.
         </p>
-        <ClipReveal className={s.map}>
+        <ClipReveal className={`${s.map} ${s.mapDesktop}`}>
           <iframe
             title="Metco Polypet plant location"
             src={mapSrc}
@@ -94,6 +94,17 @@ export function QuoteSection() {
       </div>
       <div>
         <EnquiryForm />
+      </div>
+      <div className={s.mapMobile}>
+        <ClipReveal className={s.map}>
+          <iframe
+            title="Metco Polypet plant location"
+            src={mapSrc}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className={s.mapFrame}
+          />
+        </ClipReveal>
       </div>
     </section>
   );

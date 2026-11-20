@@ -12,7 +12,7 @@ export function GET() {
   const a = site.address;
   const body = `# ${site.name}
 
-> ${site.name} is an Indian manufacturer of injection-moulded PET preforms. It supplies bottlers and brand owners with preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g, moulded from food-grade resin and checked against closure specifications before dispatch.
+> ${site.name} is an Indian manufacturer of injection-moulded PET preforms. It supplies bottlers and brand owners with 28 mm PCO 1881 preforms from 9.5 g to 18 g, moulded from food-grade resin and checked against closure specifications before dispatch.
 
 ## Company
 

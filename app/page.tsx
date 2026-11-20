@@ -4,13 +4,13 @@ import { RangeRail } from '@/components/home/RangeRail';
 import { Industries } from '@/components/home/Industries';
 import { Manufacturing } from '@/components/home/Manufacturing';
 import { Process } from '@/components/home/Process';
-import { InBrief, Clients, Cta } from '@/components/home/HomeSections';
+import { InBrief, Cta } from '@/components/home/HomeSections';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
   title: 'PET Preform Manufacturer | Metco Polypet',
   description:
-    'Metco Polypet manufactures PET preforms from 20 mm to 63 mm neck finishes and 6 g to 85 g for water, CSD, juice, edible oil, pharma and personal care.',
+    'Metco Polypet manufactures 28 mm PCO 1881 PET preforms from 9.5 g to 18 g for packaged drinking water, carbonated soft drinks, juices and dairy.',
   path: '/',
 });
 
@@ -24,7 +24,6 @@ export default function HomePage() {
       <Industries />
       <Manufacturing />
       <Process />
-      <Clients />
       <Cta />
     </article>
   );

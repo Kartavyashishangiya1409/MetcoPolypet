@@ -29,7 +29,6 @@ export function RangeRail() {
                 <h3 className={s.name}>{k.name}</h3>
                 <span className={s.range}>{k.range}</span>
               </div>
-              <span className={s.app}>{k.app}</span>
             </article>
           ))}
         </div>

@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 
 .h2 {
@@ -19,43 +19,21 @@
   color: $muted;
 }
 
-.chips {
+// Centred rows of fixed-width cards (a short last row stays centred too).
+.grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 40px;
-}
-
-.chip {
-  height: 40px;
-  padding: 0 18px;
-  border-radius: $r-pill;
-  border: 1px solid $line-btn;
-  background: transparent;
-  color: $ink;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s;
-  &[aria-pressed='true'] {
-    border-color: $ink;
-    background: $ink;
-    color: $bg;
-  }
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 40px 20px;
-}
-
-.cell[hidden] {
-  display: none;
+  justify-content: center;
+  gap: 48px clamp(20px, 3vw, 40px);
 }
 
 // Card
 .card {
+  flex: 0 1 clamp(280px, 26vw, 380px);
+  min-width: 0;
+  @media (max-width: 599px) {
+    flex-basis: 100%;
+  }
   position: relative;
   cursor: pointer;
   display: flex;
@@ -104,7 +82,7 @@
   &:focus-visible {
     outline: none;
     &::after {
-      outline: 2px solid $accent;
+      outline: 2px solid $grey-mid;
       outline-offset: 6px;
     }
   }
@@ -112,20 +90,5 @@
 
 .weight {
   @include mono(13px);
-  color: $accent;
-}
-
-.specs {
-  margin: 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 16px;
-  font-family: $font-mono;
-  font-size: 12px;
-  dt {
-    color: $muted;
-  }
-  dd {
-    margin: 0;
-  }
+  color: $grey;
 }

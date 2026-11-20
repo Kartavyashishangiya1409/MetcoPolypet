@@ -1,6 +1,7 @@
 import {
   AboutHero,
   WhoWeAre,
+  VisionMission,
   Figures,
   Milestones,
   Infrastructure,
@@ -28,6 +29,7 @@ export default function AboutPage() {
       />
       <AboutHero />
       <WhoWeAre />
+      <VisionMission />
       <Figures />
       <Milestones />
       <Infrastructure />

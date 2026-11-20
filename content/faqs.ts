@@ -1,8 +1,8 @@
-// [MOQ], [State] and the export line are placeholders — see TODO.md.
+// [MOQ] and the export line are placeholders — see TODO.md.
 export const faqs = [
   {
     q: 'What PET preform sizes does Metco Polypet manufacture?',
-    a: 'We manufacture PET preforms with neck finishes from 20 mm to 63 mm, including 28 mm PCO 1881 and 1810, 30/25, 38 mm, 46 mm, 48 mm and wide-mouth jar finishes, in weights from 6 g to 85 g.',
+    a: 'We manufacture 28 mm PCO 1881 PET preforms in weights from 9.5 g to 18 g.',
   },
   {
     q: 'What is the minimum order quantity?',
@@ -14,14 +14,14 @@ export const faqs = [
   },
   {
     q: 'Which industries do you supply?',
-    a: 'Packaged drinking water, carbonated soft drinks, juices and dairy, edible oil, pharmaceuticals, and personal and home care.',
+    a: 'Packaged drinking water, carbonated soft drinks, and juices and dairy.',
   },
   {
     q: 'Do you offer coloured preforms?',
-    a: 'Yes. We mould clear, light blue, green, amber and white opaque preforms, and can match custom colours using masterbatch.',
+    a: 'Yes. We mould clear and light blue preforms, and can match custom colours using masterbatch.',
   },
   {
-    q: 'Do you deliver outside [State]?',
+    q: 'Do you deliver outside Gujarat?',
     a: 'We deliver across India [and export to — confirm]. Preforms are packed in corrugated cartons or octabins with food-grade liners.',
   },
 ];

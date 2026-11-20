@@ -2,7 +2,7 @@ import { figures, milestones, infrastructure, certifications, team } from '@/con
 import { site } from '@/content/site';
 import { SplitLines } from '@/components/motion/SplitLines';
 import { ClipReveal } from '@/components/motion/ClipReveal';
-import { fade } from '@/components/motion/attrs';
+import { fade, ink } from '@/components/motion/attrs';
 import { PreformImage } from '@/components/ui/PreformImage';
 import t from '@/components/ui/tone.module.scss';
 import s from './About.module.scss';
@@ -48,16 +48,44 @@ export function WhoWeAre() {
         Who we are
       </span>
       <div className={s.briefBody}>
-        <p {...fade()} className={s.briefLead}>
+        <p {...fade()} {...ink} className={s.briefLead}>
           Metco Polypet has manufactured PET preforms in {site.address.city}, India since{' '}
-          {site.foundingYear}. We serve bottlers of water, soft drinks, juice, edible oil,
-          pharmaceuticals and personal care products.
+          {site.foundingYear}. We serve bottlers of water, soft drinks, juice and dairy products.
         </p>
         <p {...fade()} className={s.briefText}>
           Our work is narrow on purpose. We make preforms and the moulds behind them, and we spend
           our time on the details buyers care about: neck dimensions that seal, weights that stay
           consistent, and deliveries that arrive when lines need them.
         </p>
+      </div>
+    </section>
+  );
+}
+
+export function VisionMission() {
+  return (
+    <section aria-label="Our Vision and Mission" className={s.vm}>
+      <div className={s.vmGrid}>
+        <div {...fade()} className={s.vmCard}>
+          <span className={s.vmEyebrow}>Our Vision</span>
+          <h2 className={s.vmHeading}>To be India&rsquo;s most trusted name in PET preforms.</h2>
+          <p className={s.vmText}>
+            We envision a future where every bottle starts with a preform engineered for
+            perfection &mdash; lightweight, consistent, and produced with minimal environmental
+            impact. Metco Polypet aims to set the benchmark for quality and reliability that
+            bottlers across the country can depend on.
+          </p>
+        </div>
+        <div {...fade()} className={s.vmCard}>
+          <span className={s.vmEyebrow}>Our Mission</span>
+          <h2 className={s.vmHeading}>Precision in every preform, promise in every delivery.</h2>
+          <p className={s.vmText}>
+            Our mission is to deliver PET preforms that meet the highest standards of dimensional
+            accuracy, material integrity, and food safety. We invest in advanced moulding
+            technology, rigorous quality control, and a team culture of continuous improvement
+            &mdash; so our customers can bottle with confidence.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -164,6 +192,7 @@ export function Leadership() {
             <figcaption className={s.memberCap}>
               <span className={s.memberN}>{m.n}</span>
               <span className={s.memberR}>{m.r}</span>
+              <span className={s.memberQ}>&ldquo;{m.q}&rdquo;</span>
             </figcaption>
           </figure>
         ))}
